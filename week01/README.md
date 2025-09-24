@@ -27,12 +27,12 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Open directories in VS Code using code . in the terminal
 - Create files in VS Code
 - Start with `index.html`
-  - `index.html`
+  - `touch index.html`
 
 ### HTML Tags
 
 - HTML elements are created with opening and closing tags with content between them
-- Some elements are self closing and have no content e.g. `<img/> or `<br/>`
+- Some elements are self closing and have no content e.g. `<img/>` or `<br/>`
 - Tags are the bits enclosed in the `<` `>` but elements are the whole thing with the tags and the content
   - You may hear these terms used interchangably if we talk about "creating a `<p>` tag" etc.
 
@@ -136,6 +136,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     - Commit messages should explain your changes e.g. `git commit -m "create header"`
   - Use the `git push` command to push all your changes to Github, updating your remote repository to add the code you’ve written locally
 - To deploy the site to Github pages go to settings > pages > branch and change the branch from "none" to "main" which will deploy the main branch to Github pages
+  - Make sure to go to the settings page for the repo, not for our profile
 
 ### The Console
 
@@ -273,3 +274,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   ```
 - The most common event we listen for is "click" but there are many other options including "submit", "keydown", "scroll", and "load"
 - Event handlers can be a function created elsewhere which we invoke by name but often it is an arrow function if we only want to use the function for this one event listener
+- We can give event handlers a parameter, usually called `event` or `e` to give it access to the event object which contains a bunch of properties and methods depending on the type of event
+  ```js
+  function buttonHandler(event) {
+    console.log(event); // This will log the event object containing loads of data about the specific event
+  }
+  ```
