@@ -244,7 +244,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Not all functions need names as not all of them need to be called elsewhere, so we can create anonymous functions in similar syntax:
   ```js
   function() {
-  console.log("This function has no name");
+    console.log("This function has no name");
   }
   ```
 - Taking anonymous functions even further we can create arrow functions which also have no name but don’t even need the function keyword:

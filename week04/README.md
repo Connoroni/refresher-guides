@@ -27,12 +27,13 @@
 - To set up a server we want to create a server directory separate to our client directory then run 
   ```
   npm init -y
-  npm install express
+  npm install express cors
   ```
 - There's some boilerplate that we'll always want at the top of our server
   ```js
-  // import express from our node_modules
+  // import express and cors from our node_modules
   import express from "express";
+  import cors from "cors";
   
   // instantiate our express app
   const app = express();
@@ -40,6 +41,9 @@
   // tell express to expect information in the body of the request
   app.use(express.json());
   
+  // tell express to use cors (Cross-Origin Resource Sharing) so our client can send data to the server
+  app.use(cors();
+
   // start our server
   app.listen(8080, function () {
     console.log("App is running on PORT 8080");
@@ -285,7 +289,7 @@ app.post("/names", express.json(), (req, res) => {
       `INSERT INTO users (name) VALUES ('Robert'); DROP TABLE users;--)`
       )
       ```
-      - This would insert the name 'Robert' but then end the query and begin a DROP TABLE query that would delete the users table, which would be quite bad
+      - This would insert the name 'Robert' but then end the query and begin a DROP TABLE query that would delete the users table, which would be anywhere from quite bad to completely catastrophic depending on the database
 - Most of the time we'll be querying the database not from a ```seed.js``` file but from a ```server.js``` file where we'll set up endpoints to send our queries
   ```js
   app.get("/users", async (req, res) => {
