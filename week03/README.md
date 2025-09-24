@@ -205,10 +205,10 @@
 - Inside `package.json` is a "scripts" object that contains scripts we can run through npm, and it's a common convention to add a "dev" script here to let us run our app in development mode 
   ```js 
   "scripts": {
-  "dev": "node app"
+    "dev": "node app"
   }
- ```
-  - Now instead of running ```node app``` (or whatever js file we want to run) in the terminal we can run ```npm run dev``` and this will run the dev script
+  ```
+  - Now instead of running `node app` (or whatever js file we want to run) in the terminal we can run ```npm run dev``` and this will run the dev script
     - This may not sound like a time saver but it's worth getting used to because other frameworks and tools we will cover use a dev script to do more complex tasks than running ```node app```
 - Our node_modules folder with all the files of our dependencies can get pretty big so we don't want to push it to Github with the rest of our project, which we do by creating a `.gitignore` file
   - In the `.gitignore` file we just add `node_modules` (and any other files or folders that we don't want to be pushed to Github)
@@ -308,7 +308,7 @@
     }); 
     ```
 
-###Timers
+### Timers
 
 - Timers let our code interact with time, allowing us to run functions either at regular intervals or after a certain amount of time has passed
 - There are two types of timers in JavaScript created by the ```setInterval()``` and ```setTimeout()``` methods
@@ -335,7 +335,7 @@
   clearInterval(myInterval);
   ```
   - The problem here is that the interval will be cleared almost instantly as clearInterval() will run right after the interval is created, but we can use clearInterval() inside an event or even a timeout to clear the interval after a certain amount of time or upon user interaction
-    ```
+    ```js
     setTimeout(() => {
       clearInterval(myInterval);
     }, 5000);
@@ -349,7 +349,7 @@
 - Data is stored in local storage in key-value pairs similar to a JavaScript object
 - We can check what is stored in Local Storage in the Application tab of dev tools where we can see Local Storage under the Storage heading
 - The syntax for storing and retrieving data in Local Storage is simple:
-  - ```localStorage.setItem()``` will store a key-value pair in Local Storage when given the key and value as arguments
+  - `localStorage.setItem()` will store a key-value pair in Local Storage when given the key and value as arguments
     ```js
     const form = document.querySelector("form");
     
@@ -402,21 +402,21 @@
     }
     ```
 - We can use the `||` operator with Local Storage values to get a value from Local Storage if it exists or a default value if it doesn't
-```js
-const favColour = localStorage.getItem("colour") || #0000FF; 
-```
+  ```js
+  const favColour = localStorage.getItem("colour") || #0000FF; 
+  ```
   - This works because the `||` operator will return the value on the left if it is truthy or the value on the right if the left value is falsy
 - We can remove an item from Local Storage using ```localStorage.removeItem()```
-```js
-const clearButton = document.getElementById("clearButton");
-
-clearButton.addEventListener("click", () => {
-  localStorage.removeItem("preferences");
-});
-```
+  ```js
+  const clearButton = document.getElementById("clearButton");
+  
+  clearButton.addEventListener("click", () => {
+    localStorage.removeItem("preferences");
+  });
+  ```
 - We can listen for changes in Local Storage values using the "storage" event listener and several properties of the storage event object
   - This event listener is attached to the window, but it can only listen for changes to Local Storage made by a window other than itself, e.g. a different tab open on the same website
-  ```
+  ```js
   window.addEventListener("storage", handleLocalStorageChange);
   
   function handleLocalStorageChange(event) {
