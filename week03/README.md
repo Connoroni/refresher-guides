@@ -219,12 +219,12 @@
 - Unit testing is the testing of small pieces of code in isolation such as a single function
 - Unit testing is made more difficult by using global variables as our tests won't have access to these, so we often want to avoid global variables if possible
 - We can make a test file such as `app.test.js` (assuming our main js file is app.js) where we can import our functions from the file they were written in e.g. ```js import {isPalindrome, toTitleCase} from "./app"; ```
- - To be able to import these functions in the test file we need to first export the functions from the file they're written in e.g. 
-  ```js
-  export function isPalindrome(string) {
-    //function goes here
-  }
-  ```
+  - To be able to import these functions in the test file we need to first export the functions from the file they're written in e.g. 
+    ```js
+    export function isPalindrome(string) {
+      //function goes here
+    }
+    ```
 - Vitest is a package we can use to run these tests for us but first we need to import some functions from the package ```import { test, expect, describe } from "vitest";```
 - We use these to create individual tests for our functions and tell us whether the test outputs the expired result or not
 - `describe()` takes a string and a callback function as arguments and the callback function should include `test()` which also takes a string and a callback function as arguments so we can give a label to the whole block of tests and each individual test:
