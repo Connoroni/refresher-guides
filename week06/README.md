@@ -388,7 +388,6 @@ export default function App() {
         </>
       )
     }
-    ```
     - The `&&` operator always returns the first falsy value or the value on the right if both are truthy, in this case `numbersArray.length` is falsy when the length is `0` so the operator returns `0` and renders it
       - We don't have this issue for `false` because it is considered the same as `null` or `undefined` in React so nothing is rendered, but falsy values don't get this treatment so they get rendered
 - The ternary operator is the only operator in JavaScript that takes three values: a condition, one value to return if the condition is truthy, and another to return if the condition is falsy
