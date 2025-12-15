@@ -490,5 +490,128 @@
     - Keep colours soft and balanced to maintain harmony
 
 ### Relational Databases
-- 
+- Using SQL for databases lets us create relational databases meaning that entries in different tables can be connected together
+- There are three types of relations that we can have:
+  - One-to-one 
+    - A relationship linking one item to only one other item
+    - We don't often make these ourselves but they are important to know about
+    - Examples could be one profile to one user, or one employee to one desk
+  - One-to-many
+    - A relationship linking one item to many items
+    - This is the most common type of relationship that we'll find ourselves making
+    - Examples could be one user to many posts, or one class to many students
+  - Many-to-many
+    - A relationship linking many items to many other items
+    - We often use this for categories that aren't exclusive to one item
+    - Examples could be many tags to many posts, many genres to many films, or many ingredients to many recipes
+- To create a relationship between tables first we need some tables, so we'll set up our first table for users
+  ```
+  CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(255) NOT NULL,
+    bio TEXT
+  );
+  ```
+- We have the 'one' in our one-to-many relationship, but we need to create a table that references this one by using the `REFERENCES` constraint to create a foreign key
+  ```
+  CREATE TABLE IF NOT EXISTS posts (
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id INT REFERENCES users(id),
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    img_url TEXT
+  );
+  ```
+  - `REFERENCES` lets us link a column in one table with a column in another table by including the name of the other table and the name of the column
+    - The result is that each entry in the `posts` table is connected to an entry in the `users` table so each post has an associated user
+  - A foreign key is just a primary key being used in another table, it's still a unique identifier but stored in a different table
+- Now that our tables are connected we can use a `SELECT` query with a `JOIN` statement to select data from multiple tables in one response
+  ```
+  SELECT posts.*, users.id, users.username FROM posts
+  JOIN users ON posts.user_id = users.id
+  ```
+  - Since we're selecting columns from multiple tables we need to specify the name of the table that each column is coming from (e.g. `posts.title` or `users.username`)
+    - We can still use `*` to select all columns from a table but we need to preface it with the table name (e.g. `posts.*`)
+  - A `JOIN` statement needs a condition to join the two tables which comes after an `ON` statement
+    - Most of the time this will be 'column from table a = column from table b'
+  - On the front-end this leaves us with all of the data from each table in the same object which makes it easy to access related data
+- Many-to-many relationships use the same basic principles as one-to-many relationships with `REFERENCES` and `JOIN` but with an added junction table
+  - A junction table isn't a special type of table, it's just one that only contains the columns used to connect two (or more) other tables
+    ```
+    CREATE TABLE IF NOT EXISTS films (
+      id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      title VARCHAR(255) NOT NULL,
+      director VARCHAR(255),
+      year INT
+    );
 
+    CREATE TABLE IF NOT EXISTS genres (
+      id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+      name VARCHAR(255) NOT NULL
+    );
+
+    -- Junction table
+    CREATE TABLE IF NOT EXISTS films_genres (
+      PRIMARY KEY (film_id, genre_id),
+      film_id INT REFERENCES films(id),
+      genre_id INT REFERENCES genres(id)
+    );
+    ```
+    - It's convention to name junction tables with the names of the tables that they're joining but this is optional
+    - Now there are no foreign keys in the posts or categories tables, they're both in the posts_categories table
+  - Since the junction table only contains the two id columns all we insert into it are the two ids to create the connection between the two tables
+    ```
+    INSERT INTO films_genres (film_id, genre_id) VALUES
+    (1, 1),
+    (1, 2),
+    (1, 8),
+    (2, 1),
+    (2, 2),
+    (3, 1),
+    (3, 9),
+    (3, 11),
+    (4, 3);
+    ```
+      - This connects each film to its genres, remember the primary key is the combination of both ids so we can use each individual id multiple times but only use both together once
+  - We can't join the two tables (in this case films and genres) directly because they don't have any foreign keys that reference each other, so we need to join them via the junction table
+  ```
+  SELECT films.*, genres.name FROM films
+  JOIN films_genres ON films.id = films_genres.film_id
+  JOIN genres ON films_genres.genre_id = genres.id
+  ```
+    - This will give us a separate entry for each combination of film and genre which we don't want, especially if we want to map through the data in JS
+      ```
+      | id | title           | director           | year | name        |
+      | -- | --------------- | ------------------ | ---- | ----------- |
+      | 1  | Shaolin Soccer  | Stephen Chow       | 2001 | Action      |
+      | 1  | Shaolin Soccer  | Stephen Chow       | 2001 | Comedy      |
+      | 1  | Shaolin Soccer  | Stephen Chow       | 2001 | Sports      |
+      | 2  | Kung Fu Hustle  | Stephen Chow       | 2004 | Action      |
+      | 2  | Kung Fu Hustle  | Stephen Chow       | 2004 | Comedy      |
+      | 3  | Excalibur       | John Boorman       | 1981 | Action      |
+      | 3  | Excalibur       | John Boorman       | 1981 | Fantasy     |
+      | 3  | Excalibur       | John Boorman       | 1981 | Historical  |
+      | 4  | Paris, Texas    | Wim Wenders        | 1984 | Drama       |
+      ```
+  - The better solution for joining these tables is to use an aggregate function (usually `ARRAY_AGG`) and a group
+    ```
+    SELECT films.*, ARRAY_AGG(genres.name) FROM films
+    JOIN films_genres ON films.id = films_genres.film_id
+    JOIN genres ON films_genres.genre_id = genres.id
+    GROUP BY films.id
+    ORDER BY films.id;
+    ```
+    - This gives us our results with the genres combined (aggregated) into an array and grouped by the film
+      ```
+      | id | title           | director           | year | array_agg                          |
+      | -- | --------------- | ------------------ | ---- | ---------------------------------- |
+      | 1  | Shaolin Soccer  | Stephen Chow       | 2001 | ["Action","Comedy","Sports"]       |
+      | 2  | Kung Fu Hustle  | Stephen Chow       | 2004 | ["Action","Comedy"]                |
+      | 3  | Excalibur       | John Boorman       | 1981 | ["Action","Fantasy","Historical"]  |
+      | 4  | Paris, Texas    | Wim Wenders        | 1984 | ["Drama"]                          |
+      ```
+- There are multiple types of `JOIN` in SQL that will select different records, these are some of the most common ones
+  - INNER JOIN: Returns only records that have values in both tables, this is the default type of join that is used if we just write `JOIN`
+  - OUTER JOIN: Returns all records that have values in either or both tables
+  - LEFT JOIN: Returns all records from the left table and any matching records in the right
+  - RIGHT JOIN: Returns all records from the right table and any matching records in the left
