@@ -163,10 +163,145 @@
     - Because this function is outside the component function, we would need to fetch the data again inside the component function if we want to use it there as well as in the metadata
 
 ### Data Fetching in Next
-- 
+- One of the benefits of our components running on the server is that we don't need to make any API routes for fetching data, we can make the API calls directly from our components
+- Since our components are run on the server in Next the data will be fetched when the component runs without any need for `useEffect` either
+- Using the JSON Placeholder API as an example once again, we can fetch data directly from there in our server components
+  ```js
+  {/* /posts/page.js */}
+
+  export async function PostsPage() {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const posts = await res.json();
+
+    return(
+      <>
+        {posts.map((post) => (
+          <div key={post.id}>
+            <h2>{post.title}</h1>
+            <p>{post.body}</p>
+          </div>
+        ))}
+      </>
+    );
+  }
+  ```
+  - The process here is the same as what we did in vanilla JS (and React minus the `useEffect`) with fetching the data then parsing it from JSON to a usable object
+  - Our component functions need to be asynchronous if we're awaiting anything within them
+- If we're fetching from a dynamic route then we can use the params from our own URL in the fetch URL
+  ```js
+  {/* /posts/[id]/page.js */}
+
+  export async function IndividualPost({ params }) {
+    const id = (await params).id;
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const post = await res.json();
+
+    return(
+      <div>
+        <h2>{post.title}</h1>
+        <p>{post.body}</p>
+      </div>
+    );
+  }
+  ```
+  - A common setup in Next.js is a 'posts' page that fetches all posts, and a dynamic 'post' page that fetches a single post dependent on the params
+- We can use query strings in Next though they are technically called `searchParams` here
+  - This is handy for filtering or sorting data that we fetch
+  ```js
+  {/* /posts/page.js */}
+
+  export async function PostsPage({ searchParams }) {
+    const query = await searchParams;
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const posts = await res.json();
+
+    if (query.sort === "desc") {
+      posts.reverse();
+    }
+
+    return(
+      <>
+        <h2>Sort posts:</h2>
+        <div>
+          <Link href="/posts?sort=asc">Ascending</Link>
+          <Link href="/posts?sort=desc">Descending</Link>
+        </div>
+        <h2>Posts</h2>
+        {posts.map((post) => (
+          <div key={post.id}>
+            <h2>{post.title}</h1>
+            <p>{post.body}</p>
+          </div>
+        ))}
+      </>
+    )
+  }
+  ```
+    - Just like `params`, `searchParams` is a promise that needs to be awaited but we can again get values out on one line with `const sort = (await searchParams).sort;`
+    - Like in React Router we can use the `Link` component to let users change the search params
 
 ### Next Postgres
-- 
+- Just like data fetching, we can make database calls through the `pg` package directly from our components in Next.js
+  - All we need to do is import `pg`, create our `pg.Pool`, and query the database directly
+    ```js
+    {/* /posts/page.js */}
+    import pg from "pg";
+
+    export default async function PostsPage() {
+      const db = new pg.Pool({
+        connectionString: process.env.DB_CONN,
+      });
+
+      const posts = (await db.query("SELECT * FROM posts")).rows;
+
+      return(
+        <>
+          {posts.map((post) => (
+            <div key={post.id}>
+              <h2>{post.title}</h1>
+              <p>{post.body}</p>
+            </div>
+          ))}
+        </>
+      )
+    }
+    ```
+    - Now the result of the query is an array that we can use on the rest of the page, often mapping through it to render the data
+- We can do this in dynamic routes too and use the params in the query, usually with a `WHERE` clause to select only certain records
+  ```js
+  {/* /posts/[id]/page.js */}
+  import pg from "pg";
+
+  export default async function PostsPage({ params }) {
+    const id = (await params).id;
+
+    const db = new pg.Pool({
+      connectionString: process.env.DB_CONN,
+    });
+
+    const post = (await db.query(`SELECT * FROM posts WHERE id = $1`, [id])).rows[0];
+
+    return(
+      <div>
+        <h2>{post.title}</h1>
+        <p>{post.body}</p>
+      </div>
+    );
+  }
+  ```
+- Our `.env` file needs to go in the root of the project outside of the `/src` directory
+  - We can access the environment variables in this file through the `process.env` object as usual, but Next creates this object for us without needing the `dotenv` package
+- Instead of having to import `pg` and create a pool in every page that we want to write database queries in, we can create a file that exports the `db` variable so that we can import that directly
+  ```js
+  {/* /src/utils/db.js */}
+  import pg from "pg";
+
+  export const db = new pg.Pool({
+    connectionString: process.env.DB_CONN,
+  });
+  ```
+  - `utils` isn't a special directory but it's used for this type of utility and others that we want to export and use across the app
+  - Now instead of the whole process we did before, we can just do `import db from "@/utils/db"` then write our queries
 
 ### Client and Server Components
 - 
@@ -184,4 +319,4 @@
 - 
 
 ### Deploying to Vercel
-- 
+- choose a location close to where the database is hosted on Supabase
