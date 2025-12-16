@@ -52,6 +52,7 @@
     }
     ```
     - The `params` prop is a promise which is why we need to await it and make the component function asynchronous
+      - We can get specific values in one line if we wrap it in brackets like `const id = (await params).id`
     - Awaiting params returns an object with each of the params as properties with names matching what we put in square brackets in the directory name so in this case it's just id
       - Most of the time we'll only have one param so only one property in the object but in cases with nested dynamic routes we would have multiple params
 - Next.js comes with many components we can import and one of the most common is `<Link>`
@@ -95,7 +96,71 @@
   - Most of the time we need to use a template literal so we can vary the params
 
 ### Metadata
-- 
+- Standard HTML uses the `<title>` and `<meta>` tags to create our metadata but these go in the `<head>` which isn't easily accessible in Next.js or React
+- Next has a way around this though, letting us create a metadata object that gets rendered in `<head>` when the page is created
+- We can create a default metadata object in `layout.js` for the whole app then override it on specific pages in each `page.js`
+  ```js
+  {/* layout.js */}
+
+  export const metadata = {
+    title: "My Lovely Site",
+    description: "This is a lovely website that has some metadata!",
+  }
+  ```
+  ```js
+  {/* /posts/page.js */}
+
+  export const metadata = {
+    title: "My Lovely Site - Posts",
+    description: "This page shows all the posts that users have made",
+  }
+  ```
+- We can add go further by adding Open Graph information to our metadata as an object
+  - Open Graph determines how it looks when a link is shared on social media or apps like Discord, we've all seen it before without realising
+  ```js
+  {/* layout.js */}
+
+  export const metadata = {
+    title: "My Lovely Site",
+    description: "This is a lovely website that has some metadata!",
+    openGraph: {
+      title: "My Lovely Site",
+      description: "This is a lovely website that has some metadata!",
+      type: "website",
+      url: "https://www.mylovelysite.com",
+    },
+  }
+  ```
+  - We can add images to enhance the appearance of our Open Graph links but we don't do it in the metadata object, we have to add an image file in the same directory as the page called opengraph-image (with the correct file extension)
+    ```
+    /src
+    |  /app
+    |  |  /posts
+    |  |  |  opengraph-image.jpg
+    |  |  |  opengraph-image.alt.txt
+    |  |  |  page.js
+    |  |  layout.js
+    |  |  opengraph-image.png
+    |  |  opengraph-image.alt.txt
+    |  |  page.js
+    ```
+    - To add alt text to these images we can create another file called opengraph-image.alt.txt containing our alt text
+- If we have a dynamic page then we also want our metadata to be dynamic so that it can, for example, display a post title as the page title
+  - Instead of exporting a metadata object we export the `generateMetadata` function where we return an object, usually after fetching some data
+    ```js
+    {/* /post/[id]/page.js */}
+
+    export async function generateMetadata({ params }) {
+      const id = (await params.id);
+      const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+      const post = await res.json();
+      return {
+        title: post.title,
+        description: post.body,
+      };
+    }
+    ```
+    - Because this function is outside the component function, we would need to fetch the data again inside the component function if we want to use it there as well as in the metadata
 
 ### Data Fetching in Next
 - 
