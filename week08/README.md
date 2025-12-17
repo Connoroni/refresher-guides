@@ -301,9 +301,33 @@
   });
   ```
   - `utils` isn't a special directory but it's used for this type of utility and others that we want to export and use across the app
-  - Now instead of the whole process we did before, we can just do `import db from "@/utils/db"` then write our queries
+  - Now instead of the whole process we did before, we can just do `import db from "@/utils/db"` on each page that needs it
 
 ### Client and Server Components
+- SSR (Server-Side Rendering) is what differentiates Next.js from React but we can specify whether we want each component to be run on the client or server
+- Server components are the norm and should make up most of our app, but we need to use client components for things that server components can't do
+- Because all of the JS is run on the server before returning the finished page, server components can't run any JS after the page loads which means we can't use:
+  - Events (onClick, onSubmit, etc.)
+  - React hooks (useState, useEffect, etc.)
+  - Browser APIs (document/window objects, localStorage, etc.)
+- The benefits of server componets are what we've already covered:
+  - Better performance
+  - Direct API and database calls
+- All components are server components by default and we need to add `"use client"` at the very top of the page or component to make it a client component
+  ```js
+  "use client"
+
+  export default function CoolButton() {
+    return(
+      <button onClick={() => {console.log("I can only exist on the client!")}}>
+        Click Me
+      </button>
+    )
+  }
+  ```
+- Client components can be imported into server components with no problem, but server components can't be imported into client components
+  - This means we want to keep our client components as small and self-contained as possible like a single button as in the example above
+  - This also means we need to pay more attention to where we are using state as it must be entirely contained to client components
 - 
 
 ### Forms and Server Functions
