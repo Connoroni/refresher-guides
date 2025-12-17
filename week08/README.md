@@ -6,6 +6,7 @@
 - The key difference is that Next.js uses SSR (Server Side Rendering) which means all of the JavaScript used to generate the HTML is run on the server and the completed HTML document is returned all at once, keeping the amount of JavaScript that gets sent to the client so the page is downloaded faster
   - This is in contrast to React (and vanilla JS) where the code is run on the client and the page is created as it runs
 - Another key feature of Next.js is that it includes routing similar to what React Router allows us to do
+- We still have components and props like in React but instead of a single `App.jsx` file we have multiple `page.js` files, one for each page
 
 ### Setting Up a Next Project
 - To create a Next.js project we run `npx create-next-app@latest`
@@ -328,10 +329,124 @@
 - Client components can be imported into server components with no problem, but server components can't be imported into client components
   - This means we want to keep our client components as small and self-contained as possible like a single button as in the example above
   - This also means we need to pay more attention to where we are using state as it must be entirely contained to client components
-- 
 
 ### Forms and Server Functions
-- 
+- Forms can be used on server components despite not being able to use event listeners, as we can use server functions
+- Server functions are functions that run on the server upon form submission to submit our form data to a database without the need for event listeners or API routes
+- There are a couple of steps for making server functions and connecting them to forms:
+  - Create a named async function within the component function
+  - Add `"use server"` on the first line of the function
+    - Try not to think of this as the opposite of `"use client"`, we're not specifying a server component but a server function
+  - Get the value of each input field in our form
+  - Write a database query to use the data from the form
+  - Create a form as normal but add an `action` prop to the `<form>` tag to run our server function
+  ```js
+  {/* /create-post/page.js */}
+  import db from "@/utils/db";
+
+  export default async function CreatePost() {
+    async function handlePost(formData) {
+      "use server";
+
+      const title = formData.get("title");
+      const body = formData.get("body");
+
+      await db.query("INSERT INTO posts (title, body) VALUES ($1, $2)", [
+        title,
+        body,
+      ]);
+    }
+
+    return(
+      <>
+        <form action={handlePost}>
+          <label htmlFor="title">Enter a title</label>
+          <input id="title" name="title"/>
+          <label htmlFor="body">Post Content</label>
+          <textarea id="title" name="title" placeholder="Write your post here..."/>
+          <button type="submit">Submit</button>
+        </form>
+      </>
+    )
+  }
+  ```
+  - Server functions are a good place to use destructuring so that we don't have to make a long list of `formData.get` for larger forms
+    ```js
+    async function handlePost(formData) {
+      "use server";
+
+      const { title, body } = formData;
+
+      await db.query("INSERT INTO posts (title, body) VALUES ($1, $2)", [
+        title,
+        body,
+      ]);
+    }
+    ```
+- This is much more straightforward than the way we've handled form submissions in React, so it's usually better to make forms in Next in server components
+- Sometimes we don't want a full form for users to fill in but still want them to be able to manipulate the data in the database, such as with a 'delete' button, and there are a couple of options for this
+  - We can make the button a client component and pass down the server function as a prop, the same way we'd pass down any function
+    ```js
+    {/* /post/[id]/page.js */}
+    import db from "@/utils/db";
+    import DeleteButton from "@/components/DeleteButton";
+    
+    export default async function IndividualPost({ params }) {
+      const id = (await params).id;
+      const post = (await db.query("SELECT * FROM posts WHERE id = $1", [id])).rows[0];
+
+      async function handleDelete() {
+        "use server";
+
+        await db.query("DELETE FROM posts WHERE id = $1", [id])
+      }
+
+      return(
+        <div>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+          <DeleteButton handleDelete={handleDelete} />
+        </div>
+      );
+    }
+    ```
+    ```js
+    {/* /components/DeleteButton.jsx */}
+
+    export default function DeleteButton({ handleDelete }) {
+      return(
+        <button onClick={handleDelete}>Delete Post</button>
+      );
+    }
+    ```
+  - We can handle it all on the server instead by making a form with no inputs and just a 'submit' button
+    ```js
+    {/* /post/[id]/page.js */}
+    import db from "@/utils/db";
+    import DeleteButton from "@/components/DeleteButton";
+    
+    export default async function IndividualPost({ params }) {
+      const id = (await params).id;
+      const post = (await db.query("SELECT * FROM posts WHERE id = $1", [id])).rows[0];
+
+      async function handleDelete() {
+        "use server";
+
+        await db.query("DELETE FROM posts WHERE id = $1", [id])
+      }
+
+      return(
+        <div>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+          <form action={handleDelete}>
+            <button type="submit">Delete Post</button>
+          </form>
+        </div>
+      );
+    }
+    ```
+    - It's not needed in this case but sometimes we'll need to include an input with `type="hidden"` to pass some other data through the `value` attribute
 
 ### Images in Next
 - 
