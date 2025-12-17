@@ -449,7 +449,102 @@
     - It's not needed in this case but sometimes we'll need to include an input with `type="hidden"` to pass some other data through the `value` attribute
 
 ### Images in Next
-- 
+- Instead of the standard `<img/>` tag we use the built-in `<Image/>` component in Next.js
+- This component improves on `<img/>` in a few ways:
+  - It automatically serves the correct image size for your device without needing `srcset`
+  - It prevents layout shift while images are loading
+  - It uses lazy loading to improve performance by only loading the image when it's in view
+  - It complains to us through the console if we don't include alt text (debatable if this is an improvement tbh)
+- To use the Image component we first need to import it then we can use it like any other component
+  ```js
+  import Image from "next/image";
+
+  export default function ImagePage() {
+    return(
+      <div>
+        <Image
+          src="/orangutan.png"
+          alt="A lovely orangutan looking at the camera"
+          height={500}
+          width={500}
+        />
+        <Image
+          src="/gorilla.png"
+          alt="A big cool gorilla sitting on a rock"
+          height={600}
+          width={480}
+        />
+        <Image
+          src="/chimp.png"
+          alt="A happy chimpanzee swinging around"
+          height={500}
+          width={300}
+        />
+      </div>
+    );
+  }
+  ```
+  - While an `img` only strictly needs a `src` attribute, a Next `Image` needs `src`, `alt`, `height`, and `width` attributes
+    - `src` and `alt` function the same way as we're used to
+    - `height` and `width` set the *intrinsic* height and width in pixels that are used to determine the correct aspect ratio and avoid layout shift, but these are separate to the properties we set with CSS 
+  - For files in the `/public` directory we can skip the whole import path and just use a single `/` for the public directory e.g. `/myImage.png` instead of `@/../public/myImage.png`
+    - It's worth noting here too that we can use `@` in file paths in Next.js to refer to the `/src` directory from any file instead of needing a series of `..`
+- As usual we can use an external image URL as the `src` instead of a file path but we need to configure the `next.config.mjs` file to allow the image host
+  - By default, `next.config.mjs` exports an empty object called `nextConfig` and we want to add to this object
+    ```js
+    const nextConfig = {
+      images: {
+        remotePatterns: [
+          {
+            protocol: "https",
+            hostname: "example.com",
+            port: "",
+            pathname: "/**",
+            search: "",
+          },
+        ],
+      },
+    };
+    ```
+    - For the purposes of the bootcamp we may want to allow images from all hosts by setting hostname to `"**"`, but this is bad practice in actual production apps
+      ```js
+      const nextConfig = {
+        images: {
+          remotePatterns: [
+            {
+              protocol: "https",
+              hostname: "**",
+            },
+          ],
+        },
+      };
+      ```
+- Another approach to the `Image` component is to statically import the image file which lets us skip the `height` and `width` attributes
+  ```js
+  import Image from "next/image";
+  import orangutan from "/orangutan.png";
+  import gorilla from "/gorilla.png";
+  import chimp from "/chimp.png";
+
+  export default function ImagePage() {
+    return(
+      <div>
+        <Image
+          src={orangutan}
+          alt="A lovely orangutan looking at the camera"
+        />
+        <Image
+          src={gorilla}
+          alt="A big cool gorilla sitting on a rock"
+        />
+        <Image
+          src={chimp}
+          alt="A happy chimpanzee swinging around"
+        />
+      </div>
+    );
+  }
+  ```
 
 ### Fonts in Next
 - 
