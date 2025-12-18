@@ -718,4 +718,13 @@
     - The only thing to remember is that we need to give a name to the imported CSS module and preface any class names with this name e.g. `className={headerStyles.myClass}`
 
 ### Deploying to Vercel
-- choose a location close to where the database is hosted on Supabase
+- Next.js is created by Vercel which is handy because it means we can deploy Next apps easily to vercel.com
+- We need to connect Vercel to our GitHub account so we can select our repos to deploy our apps from
+- From the Vercel dashboard go to the 'Add New' dropdown and select 'Project'
+  - Select the repo we want to deploy from
+  - We shouldn't need to change the build command, install command, or output directory
+  - In the environment variables dropdown we can add the environment variables from our `.env` file(s)
+  - Click deploy and we're done, it's a lot simpler than Render!
+- We can't choose the region for the server that runs the code to build our app, but we can choose the region that our server functions run in
+  - After deployment navigate to the project from the dashboard and go to the Settings tab (along the top) and the Functions tab (down the side)
+  - Now we can choose the function region, though with the free version of Vercel we can only have one at a time which for us should be 'London, United Kingdom (West) - eu-west-2'
