@@ -651,7 +651,71 @@
   ```
 
 ### Styling in Next
-- 
+- Next.js has a few options for styling similarly to React
+- The `globals.css` file in `/app` works the same as a standard `style.css` file where we can style with our standard CSS selectors
+- We can use Tailwind too as long as we say yes to it when setting up the app with `create-next-app`
+  - We can also extend Tailwind with new variables in the `globals.css` file using the `@theme` directive
+  ```css
+  @theme {
+    --color-w-blue: #408FC0;
+  }
+  ```
+  ```js
+  {/* layout.js */}
+  export default function RootLayout({ children }) {
+    return (
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} bg-w-blue antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    );
+  }
+  ```
+  - We can use themes for values such as colours and fonts to make them usable through Tailwind utility classes
+- Unique to Tailwind are CSS modules where we can write standard CSS and import it into individual components or pages
+  - We create a `.module.css` file and write our CSS in there
+  ```css
+  {/* /components/footer.module.css */}
+
+  .footer {
+    background: papayawhip;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+  }
+  ```
+  - Next we import this into the component we want to use it in and use the classes
+    ```js
+    {/* /components/Footer.jsx */}
+    import styles from "./footer.module.css";
+    
+    export default function Footer() {
+      return(
+        <footer className={styles.footer}>
+          <ul className={styles.list}>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ul>
+          <ul className={styles.list}>
+            <li>Item 4</li>
+            <li>Item 5</li>
+            <li>Item 6</li>
+          </ul>
+        </footer>
+      )
+    }
+    ```
+    - The only thing to remember is that we need to give a name to the imported CSS module and preface any class names with this name e.g. `className={headerStyles.myClass}`
 
 ### Deploying to Vercel
 - choose a location close to where the database is hosted on Supabase
