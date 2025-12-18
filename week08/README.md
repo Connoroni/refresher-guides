@@ -547,7 +547,108 @@
   ```
 
 ### Fonts in Next
-- 
+- Fonts are imported differently in Next.js as Google fonts comes built into the framework
+- To use fonts from Google fonts we need to import them in `layout.js` from `"next/font/google"` then create an object with configuration option for the font
+  ```js
+  import { Geist, Geist_Mono } from "next/font/google";
+ 
+  const geistSans = Geist({
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
+  });
+ 
+  const geistMono = Geist_Mono({
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+  });
+  ```
+- Geist and Geist_Mono are the default fonts used in Next but to find more we can `CTRL+click` or `CMD+click` on one of these fonts in the import to find the full list of fonts buried deep within `node_modules`
+  - Some of these fonts have different options to configure in the object which we can see in the list of fonts, for example the font Fira_Mono has `weight`, `style`, `display`, `variable`, `preload`, `fallback`, `adjustFontFallback`, and `subsets` properties that we can configure in the objects
+    ```js
+    export declare function Fira_Mono<T extends CssVariable | undefined = undefined>(options: {
+        weight: '400' | '500' | '700' | Array<'400' | '500' | '700'>;
+        style?: 'normal' | Array<'normal'>;
+        display?: Display;
+        variable?: T;
+        preload?: boolean;
+        fallback?: string[];
+        adjustFontFallback?: boolean;
+        subsets?: Array<'cyrillic' | 'cyrillic-ext' | 'greek' | 'greek-ext' | 'latin' | 'latin-ext' | 'symbols2'>;
+    }): T extends undefined ? NextFont : NextFontWithVariable;
+    ```
+    - We can see that the `weight` property is required as it doesn't have a `?` to mark it as an optional property so usually we don't include most of the properties
+    - Each of the properties also states the values or data types that it can take
+  - Here's what importing Fira_Mono with these options could look like
+    ```js
+    import { Fira_Mono } from "next/font/google";
+
+    const firaMono = Fira_Mono({
+      weight: '500',
+      variable: '--font-fira-mono',
+      subsets: ['latin'],
+    });
+    ```
+- With our font imported and configured we can now set it as the font by adding it as a `className` in the JSX returned by our `RootLayout` function in the `<html>` or `<body>` tag
+  ```js
+  export default function RootLayout({ children }) {
+    return (
+      <html lang="en">
+        <body
+          className={`${firaMono.className} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    );
+  }
+  ```
+- If we don't want to use the font all through our app by adding it to the `<html>` or `<body>` tags, we can export the font and import it into the components we want to use it in
+  ```js
+  {/* layout.js */}
+  import { Fira_Mono } from "next/font/google";
+
+  export const firaMono = Fira_Mono({
+    weight: '500',
+    variable: '--font-fira-mono',
+    subsets: ['latin'],
+  });
+  ```
+  ```js
+  {/* /app/page.js */}
+  import firaMono from "./layout.js";
+
+  export default function HomePage() {
+    return(
+      <div>
+        <h1 className={`${firaMono.className}`>
+          Look at this cool font!
+        </h1>
+        <p>Here's some content, this bit has the default font</p>
+      </div>
+    )
+  }
+  ```
+- We can use local fonts too, not just those from Google fonts, with a similar process but importing `localFont` from `"next/font/local"` and setting a `src` property in the config object
+  ```js
+  {/* layout.js */}
+  import localFont from "next/font/local";
+
+  const magicCards = localFont({
+    src: "/fonts/MagicCardsNormal.ttf",
+  });
+
+  export default function RootLayout({ children }) {
+    return (
+      <html lang="en">
+        <body
+          className={`${magicCards.className} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    );
+  }
+  ```
 
 ### Styling in Next
 - 
