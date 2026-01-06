@@ -161,32 +161,32 @@
   </form>
   ```
 - Then in our client-side JavaScript we set up a "submit" event listener but include a fetch with ```method: "POST"```
-```js
-const nameForm = document.getElementById("nameForm");
-
-function submitHandler(e) {
-  e.preventDefault();
-  const formData = new FormData(nameForm);
-  const name = formData.get("name");
-
-  fetch("http://localhost:8080/names", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json", 
-    },
-    body: JSON.stringify({ name }),
-  }
-};
-
-nameForm.addEventListener("submit", submitHandler);
-```
+  ```js
+  const nameForm = document.getElementById("nameForm");
+  
+  function submitHandler(e) {
+    e.preventDefault();
+    const formData = new FormData(nameForm);
+    const name = formData.get("name");
+  
+    fetch("http://localhost:8080/names", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", 
+      },
+      body: JSON.stringify({ name }),
+    }
+  };
+  
+  nameForm.addEventListener("submit", submitHandler);
+  ```
 - Now in our server.js we can create a POST endpoint to handle the user-submitted data
-```js
-app.post("/names", express.json(), (req, res) => {
-  console.log("Hello ", req.body);
-  res.json({ status: "New name received" });
-}
-```
+  ```js
+  app.post("/names", express.json(), (req, res) => {
+    console.log("Hello ", req.body);
+    res.json({ status: "New name received" });
+  }
+  ```
 
 ### Databases and SQL
 - Databases are the third part of the WRRC (Web Request-Response Cycle) and allow us to store data that can be accessed by the server and sent to the client

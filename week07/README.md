@@ -389,8 +389,7 @@
   - Because our effect runs twice, that means that our timer will be added twice which we don't want
   - We need to add a cleanup function to remove the timer at the end of our useEffect, which we do by adding a `return` statement to the end of our effect's callback function
 - For our cleanup function here we want to use the `clearInterval` method, but we need to give our interval a name so we can reference it to clear it
-  ```
-  js
+  ```js
   {/* CleanTimer.jsx */}
 
   export default function CleanTimer() {
@@ -574,11 +573,11 @@
     ```
       - This connects each film to its genres, remember the primary key is the combination of both ids so we can use each individual id multiple times but only use both together once
   - We can't join the two tables (in this case films and genres) directly because they don't have any foreign keys that reference each other, so we need to join them via the junction table
-  ```
-  SELECT films.*, genres.name FROM films
-  JOIN films_genres ON films.id = films_genres.film_id
-  JOIN genres ON films_genres.genre_id = genres.id
-  ```
+    ```
+    SELECT films.*, genres.name FROM films
+    JOIN films_genres ON films.id = films_genres.film_id
+    JOIN genres ON films_genres.genre_id = genres.id
+    ```
     - This will give us a separate entry for each combination of film and genre which we don't want, especially if we want to map through the data in JS
       ```
       | id | title           | director           | year | name        |
