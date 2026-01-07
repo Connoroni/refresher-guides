@@ -245,7 +245,37 @@
     ```
 
 ### Component Libraries
-- 
+- Component libraries are useful resources that contain pre-made components for us to import, customise, and use in our apps instead of having to make everything from scratch
+- There are a lot of options out there but the one we'll be using as an example is [Radix](https://www.radix-ui.com/)
+- We need to install Radix from npm like any other package or library with `npm i radix-ui`
+  - Alternatively we can install just the component that we want e.g. `npm i @radix-ui/react-dialog`
+- We then import only the component(s) that we want from Radix in the component that we want to use them in e.g. `import { dialog } from "radix-ui";`
+  - It's a good idea to have a create a `.jsx` file for each component we're importing e.g. if we import a Dialog component we do it in a `Dialog.jsx` file and use it like any other component
+- The best guide to follow is the one in the Radix docs for the component you're using e.g. [this page](https://www.radix-ui.com/primitives/docs/components/dialog) for the Dialog component
+  - Don't be intimidated by the example at the top of the page, this is showing what we can do but it's not the template we should use
+  - Radix has an 'anatomy' section for each of its components which contains the different parts of the component that we can customise so we should copy this setup into our own component
+  <details><summary>Anatomy for the Dialog component</summary>
+    ```js
+    import { Dialog } from "radix-ui";
+
+    export default () => (
+    	<Dialog.Root>
+    		<Dialog.Trigger />
+    		<Dialog.Portal>
+    			<Dialog.Overlay />
+    			<Dialog.Content>
+    				<Dialog.Title />
+    				<Dialog.Description />
+    				<Dialog.Close />
+    			</Dialog.Content>
+    		</Dialog.Portal>
+    	</Dialog.Root>
+    )
+    ```
+    - Because of the way we're used to writing components we probably want to change the component function to be a named function e.g. `export default function Dialog() {}`
+  </details>
+  - There is an explanation for each of the parts that make up the component and the different props and content we can add to each one
+    - Some of these interact with state so we need to use `useState`, e.g. for things like the boolean `open` state for Dialog
 
 ### Error and Not Found Pages
 - 
