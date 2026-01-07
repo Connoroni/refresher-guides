@@ -12,22 +12,22 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 
 - Navigate between directories using `cd`
   - We can go up by one directory using `cd ..`
-  - We can move multiple directories at once by using a `/` e.g. `cd bootcamp/week01/html-tags`
+  - We can move multiple directories at once by using a `/` e.g. `cd bootcamp/week01/html-tags` or `cd ../week02`
 - Create new directories using `mkdir`
 - Show the contents of the current directory using `ls`
 - Show the path of the current directory using `pwd`
 - Create new files using `touch`, but remember the file extension e.g. `touch index.html`
 - Open the current directory in VS Code using `code .`
-- We always use a command followed by the thing we're running the command on (called an operand)
+- We always use a command followed by the thing we're running the command on (called an operand but that's not important)
   - For example we can't just do `mkdir` we have to do `mkdir directoryname`, and we can't just do `touch` without specifying the file name `touch index.html`
 - We can autocomplete in the terminal using the `Tab` key if we start typing the name of a file/directory
 
 ### VS Code
 
 - Open directories in VS Code using code . in the terminal
-- Create files in VS Code
-- Start with `index.html`
-  - `touch index.html`
+- Create files in VS Code by clicking the 'New file...' button next to the directory name
+  - This is the same as using the `touch` command in the terminal
+- For now we'll always want to start by creating an `index.html` file
 
 ### HTML Tags
 
@@ -46,15 +46,18 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 
 - We should use semantic HTML tags that match how the element is used on the page
 - The `<head>` tag holds metadata such as the page title and linked CSS and JS files
+  - Don't put any content that should be rendered on the page in `<head>`, that all goes in `<body>`
 - Divide our `<body>` tag into `<header>`, `<main>`, and `<footer>`
 - Use `<h1>` for the main title (only one on the page), `<h2>` for smaller headings, `<p>` for paragraphs
 - Use `<div>` and `<section>` to dive the page up and group elements together
   - Generally `section` should be used for meaningful sections on the page while `div` is used for elements we want to group for styling or for other reasons
+- Only certain elements like `<p>` or `<h1>` should have text inside them, if we want text inside a `<div>`, `<nav>`, `<footer>` or other element then we should create one of these text elements inside it
 
 ### CSS Properties
 
 - Link our CSS file to our index.html using `<link rel="stylesheet" href="fileName.css" />`
 - Emmet abbreviations in VS Code will autofill this if we type `link:css`
+  - This will have a `href` of `"style.css"` at first but you can change this to the correct file name
 - Select the element we want to style in CSS and write the styles between {curly brackets}
 - Styles are written with the property name followed by the value e.g.
   ```css
@@ -72,15 +75,20 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - We can use `#id` to select elements but often prefer to use class because it’s reusable and keeps `id` exclusive to JavaScript
 - There are more advanced selectors we can use based on an element’s relation to other parent, child, and sibling elements
   - Some selectors include `:first-child`, `:nth-child(A), A+B`, and `[attribute="value"]`
+  - We don't use these nearly as often as the class and id selectors, but it's handy to know that they exist in case you need them
 - We can use the universal selector `*` to select all elements
   - We may want to do this at the beginning of a CSS file to override browser default styles
+  - This selects each element individually so if you set a property here it will apply to each element, not the whole document
 
 ### Dev Tools
 
 - We can inspect a webpage (right-click and inspect) to open our dev tools and view the elements on the page
+  - The shortcut for this is `F12`
+  - We can also do `Ctrl + Shift + I` on Windows or `Cmd + Shift + I` on Mac
 - The elements tab shows the full HTML layout of the page and allows us to make temporary changes
 - The styles tab shows the CSS styles applied to an element, some from specific styling written by the dev and some from the browser default (user agent stylesheet)
 - We can edit CSS styles in the styles tab manually and use the tickbox to toggle each property on and off entirely
+- Any changes we make in the elements or styles tabs are temporary and are cleared when we refresh the page, but it can be helpful for testing out different styling options in real-time
 
 ### The Box Model
 
@@ -95,8 +103,8 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - We can add the `position` property to an element in CSS, with values of `static`, `absolute`, `relative`, `fixed`, and `sticky`
 - We add the `top`, `bottom`, `left`, and `right` values to "push" the element away from those borders e.g. `top: 20px` will position the element 20px away from the top
 - Static - the default position value, the element exists in normal document flow
-- Absolute - the element is taken out of the normal flow of the document (it is sent to the Shadow Realm) and doesn’t respect the position of other elements that it overlaps with, but only does this within its first parent element that isn’t static
-- Relative - the element is positioned relative to other elements and still exists in normal document flow, this is often used to create a parent for an absolute element
+- Absolute - the element is taken out of the normal flow of the document (it is sent to the `Shadow Realm`) and doesn’t respect the position of other elements that it overlaps with, but only does this within its first parent element that isn’t static
+- Relative - the element is positioned relative to other elements but still exists in normal document flow, this is often used to create a parent for an absolute element
 - Fixed - the element maintains a specific position on the screen regardless of where the user scrolls
 - Sticky - similar to fixed position the element maintains a specific position on the screen but only when the user scrolls to it
 
@@ -110,7 +118,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   - The main axis is the axis that the elements are arranged along, and the cross axis is the other axis
   - Values for these properties include `space-around`, `space-between`, `end`, and `centre`
 - The `flex-wrap` property determines how the elements will be positioned if they fill the flex container, should they spill out of the container (`flex-wrap: no-wrap;`) or be pushed onto a second row/column (`flex-wrap: wrap;`)?
-  - Remember: if the flex elements are wrapped we need to use `align-content` instead of alig`n-items`!
+  - An extra property we can use when flex-wrap is on is `align-content` which controls the layout of the individual lines that are wrapped
 - Even if we have only one element, flex is a great way to centre it within its parent element
 
 ### Git Essentials
@@ -150,8 +158,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 
 - Variables are a way of storing data in JavaScript, allowing us to refer to the variable name in our code instead of the value
 - Values in a variable can be any data type whether that’s a primitive one like a string or number, or a complex one like an object or array
-- We can declare variables with the keywords let (for variables where the value will change) or const (for variables that have a constant value)
+- We can declare variables with the keywords `let` (for variables where the value will change) or `const` (for variables that have a constant value)
 - When we declare a variable we use `let variableName = value` or `const variableName = value` but when we change the value we drop the keyword so it's `variableName = value`
+  - We can never change the value of a variable declared with `const`, but VS Code will warn us about this with an error
 - Using let we can declare a variable with no initial value, just `let variableName`
 
 ### JS Primitive Data Types
@@ -221,7 +230,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     console.log("Something");
   }
   ```
-- We need to declare a function using the syntax above then invoke it using the function name followed by a pair of parentheses ()
+- We need to declare a function using the syntax above then invoke it using the function name followed by a pair of parentheses `()`
   ```js
   // Declare the function
   function myFunction() {
@@ -253,6 +262,16 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     console.log("It’s an arrow function because we use an arrow(=>)")
   }
   ```
+  - Both anonymous functions and arrow functions can still take arguments like named functions can, they just go in the brackets
+    ```js
+    function(word) {
+      console.log(word)
+    };
+
+    (word) => {
+      console.log(word)
+    }
+    ```
 
 ### JS Scope
 
@@ -260,7 +279,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - A variable declared outside of any function can be used anywhere, this is called global scope
 - A variable declared inside a function can only be used inside that function, this is called function scope
 - For larger apps using too much global scope can cause memory problems because the variable is never cleared from memory so it can be accessed at any time, while variables within function scope only exist while the function is being executed
-- We can reuse variable names if they have function scope but we can never reuse the name of a globally scoped variable
+- We can reuse variable names in different functions if they have function scope but we can never reuse the name of a globally scoped variable
 
 ### JS Events
 
@@ -272,9 +291,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   ```js
   myButton.addEventListener("click", buttonHandler);
   ```
-- The most common event we listen for is "click" but there are many other options including "submit", "keydown", "scroll", and "load"
+- The most common event we listen for is `"click"` but there are many other options including `"submit"`, `"keydown"`, `"scroll"`, and `"load"`
 - Event handlers can be a function created elsewhere which we invoke by name but often it is an arrow function if we only want to use the function for this one event listener
-- We can give event handlers a parameter, usually called `event` or `e` to give it access to the event object which contains a bunch of properties and methods depending on the type of event
+- We can give event handlers a parameter, usually called `event` or `e` to give it access to the event object which contains a whole load of properties and methods depending on the type of event
   ```js
   function buttonHandler(event) {
     console.log(event); // This will log the event object containing loads of data about the specific event
