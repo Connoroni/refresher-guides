@@ -5,12 +5,14 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 ### How the Internet Works
 
 - The WRRC (Web Request Response Cycle) - how the client and server communicate by sending requests and recieving responses
-- The DNS - converts a website’s domain name to an IP address
+- The DNS (Domain Name Server) - converts a website’s domain name to an IP address
 - Parts of a URL - protocol://domain.name/path?query=string
 
 ### The Terminal
 
-- Navigate between directories using `cd`
+- We always use a command followed by the thing we're running the command on (called an operand but that's not important)
+  - For example we can't just do `mkdir` we have to do `mkdir directoryname`, and we can't just do `touch` without specifying the file name `touch index.html`
+- Navigate between directories (aka folders) using `cd`
   - We can go up by one directory using `cd ..`
   - We can move multiple directories at once by using a `/` e.g. `cd bootcamp/week01/html-tags` or `cd ../week02`
 - Create new directories using `mkdir`
@@ -18,8 +20,6 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Show the path of the current directory using `pwd`
 - Create new files using `touch`, but remember the file extension e.g. `touch index.html`
 - Open the current directory in VS Code using `code .`
-- We always use a command followed by the thing we're running the command on (called an operand but that's not important)
-  - For example we can't just do `mkdir` we have to do `mkdir directoryname`, and we can't just do `touch` without specifying the file name `touch index.html`
 - We can autocomplete in the terminal using the `Tab` key if we start typing the name of a file/directory
 
 ### VS Code
@@ -33,14 +33,14 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 
 - HTML elements are created with opening and closing tags with content between them
 - Some elements are self closing and have no content e.g. `<img/>` or `<br/>`
-- Tags are the bits enclosed in the `<` `>` but elements are the whole thing with the tags and the content
+- Tags are the bits enclosed in the `<` `>` (e.g. `<h1>`) but elements are the whole thing with the tags and the content (e.g. `<h1>My Title</h1>`)
   - You may hear these terms used interchangably if we talk about "creating a `<p>` tag" etc.
 
 ### HTML Attributes
 
 - We can modify HTML elements by adding attributes
 - Attributes go inside the opening tag e.g. `<img src="image-source.jpg">`
-- Examples of attributes are src, alt, href, class, and id
+- Examples of attributes are `src`, `alt`, `href`, `class`, and `id`
 
 ### HTML Structure
 
@@ -154,6 +154,59 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - The most common JavaScript method we use to add to the console is `console.log()`
 - We can also use the method `console.error()` to have the message appear as an error in the console instead of a standard message
 
+### JS Primitive Data Types
+
+- Data is information that we store in the computer's memory, but there are different types of data that get treated differently, e.g. we can do maths with numbers but not with words
+- The primitive data types are: `number`, `string`, `boolean`, `undefined`, and `null`
+- Number - self explanatory, it’s a number and we can do maths with it
+- String - anything within "speech marks", 'apostrophes', or \`backticks` is a string which is usually text
+  - Choosing between these three punctuation marks is mostly personal preference but:
+    - We can't use that punctuation mark within the string e.g. a string in apostrophes can't contain apostrophes or it will break
+    - Backticks let us use `${template literals}` (marked with a dollar sign and curly braces) which let us use other values or expressions within a string
+- Boolean - a binary true or false value, usually it’s the word true/false or other values that we call "truthy" and "falsy"
+  - Most values are considered truthy but the most common falsy value is 0
+- Undefined - a value hasn’t been assigned yet, usually seen if we try to access a variable that has no value
+- Null - not to be confused with undefined, null is a value that is assigned manually to represent nothing
+- An easy way to see different data type behaviours is trying to do maths with them, only numbers will add together as expected while everything else will concatenate
+
+### JS Operators
+
+- Operators are symbols that we use to carry out actions in JavaScript
+- Some of them are mathematical symbols like `+`, `-`, `=`, `<`, and `>`
+- The most basic one is `+` which adds two values together
+  - If the values are numbers then they'll be added together mathematically
+    ```js
+    console.log(1 + 2) //3
+    ```
+  - If the values are anything other than numbers they will be concatenated (basically jammed together)
+    ```js
+    console.log('1' + '2') //12
+    console.log('Hello' + true) //Hellotrue
+    ```
+  - Because of this it's handy for adding values in strings, just remember to add a space if you want one
+    ```js
+    const myName = 'Connor'
+    console.log ('Hello my name is ' + Connor)
+    ```
+- The other mathematical operators (`-`, `*`, `/`) only work on numbers and will give `NaN` (Not a Number) when used on any other data types
+- The operator we use most often is `=` which is the assignment operator
+- `=` is different to `==` which is the equal operator
+  - `==` tells us whether two values are equal and returns either true or false
+    ```js
+    console.log(1 == 1) //true
+    console.log(1 == 2) //false
+    ```
+  - There's also `===` which is the strict equal operator that tells us if the value *and* data type are the same
+    ```js
+    console.log(1 == '1') //true
+    console.log(1 === '1') //false
+    ```
+  - There are more comparison operators that work the same way
+    - `>` Greater than
+    - `<` Less than
+    - `!=` Not equal
+- There are loads of other operators and we'll only encounter some of them through the bootcamp, but it's an interesting topic to look into because they can be very handy
+
 ### JS Variables
 
 - Variables are a way of storing data in JavaScript, allowing us to refer to the variable name in our code instead of the value
@@ -162,18 +215,6 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - When we declare a variable we use `let variableName = value` or `const variableName = value` but when we change the value we drop the keyword so it's `variableName = value`
   - We can never change the value of a variable declared with `const`, but VS Code will warn us about this with an error
 - Using let we can declare a variable with no initial value, just `let variableName`
-
-### JS Primitive Data Types
-
-- Data is information that we store in the computer's memory, but there are different types of data that get treated differently so we can do maths with numbers but not with words
-- The primitive data types are: `number`, `string`, `boolean`, `undefined`, and `null`
-- Number - self explanatory, it’s a number that we can do maths with
-- String - anything within "speech marks", 'apostrophes', or \`backticks` is a string which is usually text
-- Boolean - a binary true or false value, usually it’s the word true/false or other values that we call "truthy" and "falsy"
-  - Most values are considered truthy but the most common falsy value is 0
-- Undefined - a value hasn’t been assigned yet, usually seen if we try to access a variable that has no value
-- Null - not to be confused with undefined, null is a value that is assigned manually to represent nothing
-- An easy way to see different data type behaviours is trying to do maths with them, only numbers will add together as expected while everything else will concatenate
 
 ### The DOM (Document Object Model)
 
