@@ -1,6 +1,6 @@
 # Week 3 Refresher Guide
 
-### Forms, User Input, and Validation Feedback
+<details><summary><h3>Forms, User Input, and Validation Feedback</h3></summary>
 
 - Forms are a crucial part of many websites as they are how we accept user inputs that are more complex than just a click or a hover 
 - A form is an HTML element that contains input elements in which users can input data, but we should also include label elements to tell users what the input is for:
@@ -43,8 +43,9 @@
   });
   ```
 - Now we can use the values in the object we created just like we would use any other object, getting individual properties with dot notation
+</details>
 
-### Fetch and APIs
+<details><summary><h3>Fetch and APIs</h3></summary>
 
 - API stands for Application Programming Interface which is a very vague term that can refer to any connection between different computers or programs, but what we're interested in are web APIs which are APIs for servers
 - We often want our apps to get data from an API that stores the data for us so we don't have to include it in the app ourselves
@@ -68,14 +69,16 @@
     }
     ```
     - Also in the response object is a HTTP status code telling us the status of the response; common ones include `200: OK`, `404: Not Found`, and `500: Internal Server Error`
+</details>
 
-### Dev Tools: Network Tab
+<details><summary><h3>Dev Tools: Network Tab</h3></summary>
 
 - The network tab in dev tools shows all the requests the browser is making including page load, fetching data, and loading images
 - We also have a throttling option that lets us simulate worse internet connections to see how a page loads which is useful for seeing things like how long images take to load or how the page looks while we wait for data to be fetched
 - The main use of the network tab is to look at our requests for debugging so we can see properties like the request body, status code, etc.
+</details>
 
-### JavaScript Under the Hood
+<details><summary><h3>JavaScript Under the Hood</h3></summary>
 
 - Some useful definitions:
   - Execution Context: An environment created for our code to be executed in
@@ -98,8 +101,9 @@
     - Timers (both `setInterval` and `setTimeout)` go on the Callback Queue, but because they're waiting for the Call Stack to be empty other tasks will continue to be run until both the Call Stack is empty and the time specified in the timer has passed
   - The Microtask Queue is for asynchronous tasks that involve promises including fetch, but these have a higher priority than tasks on the Callback Queue so they run after the Call Stack is cleared but before the Callback Queue is checked
     - Just like with timers, we don't want all the tasks on our Call Stack to have to wait for the result of fetching data, so the fetch execution context goes on the Microtask Queue while it waits for the the response to arrive and the Call Stack to be clear
+</details>
 
-### Design Principles
+<details><summary><h3>Design Principles</h3></summary>
 
 - It's all well and good to make an app that works perfectly and has some super advanced features, but nobody will want to use it if it's ugly and inconvenient to use
 - There are 10 principles we should be aware of, but not every project needs to adhere strictly to all of them:
@@ -169,8 +173,9 @@
       - Some of these like :focus also improve accessibility by giving feedback for navigation using TAB as well as the cursor
     - We should use signposts to let our user know where they are and how they got there, such as highlighting the active tab or having clear page titles
 - The idea behind these isn't to create the nicest looking site in the world, but to make it easy for users to interact with so that they can do what we want them to do on our site
+</details>
 
-### Debugger
+<details><summary><h3>Debugger</h3></summary>
 
 - You've probably encountered errors or unexpected results from your code by now, which is why it's important to be able to debug our code
 - We often debug by using the `console.log()` method to check the values of different variables or display a message as part of a function so we can be sure that it's running as expected
@@ -187,8 +192,9 @@
   ```
 - When we execute the code containing the `debugger;` statement execution pauses and we can use the sources tab to inspect the values of each of our variables at this point in time to make sure they're what we expect
 - We can also step through our code in dev tools with the "step over next function call" button in the sources tab which goes through our code one line at a time, letting us check current values at each step
+</details>
 
-### NPM Project Setup
+<details><summary><h3>NPM Project Setup</h3></summary>
 
 - NPM (Node Package Manager) is a tool that lets us install packages, by which we mean third party code to be used in our app
 - To initialise NPM in a project we run ```npm init -y``` in the terminal which creates a `package.json` file
@@ -213,8 +219,9 @@
 - Our node_modules folder with all the files of our dependencies can get pretty big so we don't want to push it to Github with the rest of our project, which we do by creating a `.gitignore` file
   - In the `.gitignore` file we just add `node_modules` (and any other files or folders that we don't want to be pushed to Github)
   - Now when someone clones our repo from Github they just need to run ```npm install``` or ```npm i``` to install all the packages and get the `node_modules` folder that we didn't push
+</details>
 
-### Unit Testing with Vitest
+<details><summary><h3>Unit Testing with Vitest</h3></summary>
 
 - Unit testing is the testing of small pieces of code in isolation such as a single function
 - Unit testing is made more difficult by using global variables as our tests won't have access to these, so we often want to avoid global variables if possible
@@ -307,8 +314,9 @@
       });
     }); 
     ```
+</details>
 
-### Timers
+<details><summary><h3>Timers</h3></summary>
 
 - Timers let our code interact with time, allowing us to run functions either at regular intervals or after a certain amount of time has passed
 - There are two types of timers in JavaScript created by the ```setInterval()``` and ```setTimeout()``` methods
@@ -340,8 +348,9 @@
       clearInterval(myInterval);
     }, 5000);
     ``` 
+</details>
 
-### Local Storage
+<details><summary><h3>Local Storage</h3></summary>
 
 - There are multiple ways to store users' data and we don't always need to build a database
 - For smaller amount of data (<5MB) we can use Local Storage, often for things like user preferences on themes or toggleable content
@@ -426,3 +435,4 @@
     }
   }
   ```
+</details>

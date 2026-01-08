@@ -1,6 +1,7 @@
 # Week 5 Refresher Guide 
 
-### Git Branching and Pull Requests
+<details><summary><h3>Git Branching and Pull Requests</h3></summary>
+
 - This will be our first time collaborating in GitHub so there are a few useful features to cover
 - In a GitHub repo, navigate to Settings> Collaborators then click 'Add people'
   - Send invites to your teammates via their name, email, or username
@@ -15,25 +16,27 @@
     - Now we can create the pull request and merge it into main
   - It's common practice to delete a branch after it has been merged into main
   - With the branch merged, we can get the newest version of the code with ```git checkout main``` to put us on the main branch, followed by ```git pull``` to pull the latest version of the code from GitHub to our machine
+</details>
 
-### Multiple Pages in Vite
+<details><summary><h3>Multiple Pages in Vite</h3></summary>
+
 - As our apps get bigger and more complex we may want to start using multiple pages
 - We can do this by creating a new directory and creating another ```index.html``` inside it
   - For example we can make an ```about``` folder inside our client and add an ```index.html``` in that folder to have a page that we can navigate to on ```/about``` e.g. 'localhost:5173/about'
 - To ensure that this page gets built by Vite when we run ```vite build``` or more likely when we deploy to Render, we'll need to create a ```vite.config.js``` file in the client directory and add the following code
-```js
-import { resolve } from "path";
-import { defineConfig } from "vite";
-
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, "index.html"),
-        about: resolve(__dirname, "about/index.html"),
+  ```js
+  import { resolve } from "path";
+  import { defineConfig } from "vite";
+  
+  export default defineConfig({
+    build: {
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "index.html"),
+          about: resolve(__dirname, "about/index.html"),
+        },
       },
     },
-  },
-});
-```
-
+  });
+  ```
+</details>

@@ -1,24 +1,27 @@
 # Week 8 Refresher Guide
 
-### Next.js Intro
+<details><summary><h3>Next.js Intro</h3></summary>
+
 - Next.js is a popular framework that builds on React
   - React is great for building nice UIs but it doesn't include some of the features we need to build full stack apps without adding third-party libraries
 - The key difference is that Next.js uses SSR (Server Side Rendering) which means all of the JavaScript used to generate the HTML is run on the server and the completed HTML document is returned all at once, keeping the amount of JavaScript that gets sent to the client so the page is downloaded faster
   - This is in contrast to React (and vanilla JS) where the code is run on the client and the page is created as it runs
 - Another key feature of Next.js is that it includes routing similar to what React Router allows us to do
 - We still have components and props like in React but instead of a single `App.jsx` file we have multiple `page.js` files, one for each page
+</details>
 
-### Setting Up a Next Project
+<details><summary><h3>Setting Up a Next Project</h3></summary>
+
 - To create a Next.js project we run `npx create-next-app@latest`
   - This will give us some questions to configure the app, here's what we want to use for now:
-    Would you like to use the recommended Next.js defaults? › No, customize settings
-    Would you like to use TypeScript? … No
-    Which linter would you like to use? › ESLint
-    Would you like to use React Compiler? … No
-    Would you like to use Tailwind CSS? … Yes
-    Would you like your code inside a `src/` directory? … Yes
-    Would you like to use App Router? (recommended) … Yes
-    Would you like to customize the import alias (`@/*` by default)? … No
+    Would you like to use the recommended Next.js defaults? › No, customize settings  
+    Would you like to use TypeScript? … No  
+    Which linter would you like to use? › ESLint  
+    Would you like to use React Compiler? … No  
+    Would you like to use Tailwind CSS? … Yes  
+    Would you like your code inside a `src/` directory? … Yes  
+    Would you like to use App Router? (recommended) … Yes  
+    Would you like to customize the import alias (`@/*` by default)? … No  
   - After choosing these setting the first time you should be able to select `No, reuse previous settings` for the first question 
   - It might seem obvious to choose the default settings but this would create the project with TypeScript instead of standard JavaScript which we don't want at this stage
 - Running the Next app is similar to what we've done in React
@@ -28,8 +31,10 @@
 - The other key commands for Next.js are `build` and `start`
   - `npm run build` will build a production version of the app, just like Vite did for us with React and vanilla
   - `npm run start` will start a production server on port 3000 but only after we run `build`
+</details>
 
-### File Routing
+<details><summary><h3>File Routing</h3></summary>
+
 - The structure of a default Next app has some important differences to a React app
 - The key thing here is that Next has file-based routing which means we can navigate to multiple pages without having to add anything like React Router's `Route` and `BrowserRouter` components
 - All of our code goes in the `/src` directory but we also have an `/app` directory that contains all of our routes
@@ -95,8 +100,10 @@
   }
   ```
   - Most of the time we need to use a template literal so we can vary the params
+</details>
 
-### Metadata
+<details><summary><h3>Metadata</h3></summary>
+
 - Standard HTML uses the `<title>` and `<meta>` tags to create our metadata but these go in the `<head>` which isn't easily accessible in Next.js or React
 - Next has a way around this though, letting us create a metadata object that gets rendered in `<head>` when the page is created
 - We can create a default metadata object in `layout.js` for the whole app then override it on specific pages in each `page.js`
@@ -162,8 +169,10 @@
     }
     ```
     - Because this function is outside the component function, we would need to fetch the data again inside the component function if we want to use it there as well as in the metadata
+</details>
 
-### Data Fetching in Next
+<details><summary><h3>Data Fetching in Next</h3></summary>
+
 - One of the benefits of our components running on the server is that we don't need to make any API routes for fetching data, we can make the API calls directly from our components
 - Since our components are run on the server in Next the data will be fetched when the component runs without any need for `useEffect` either
 - Using the JSON Placeholder API as an example once again, we can fetch data directly from there in our server components
@@ -240,8 +249,10 @@
   ```
     - Just like `params`, `searchParams` is a promise that needs to be awaited but we can again get values out on one line with `const sort = (await searchParams).sort;`
     - Like in React Router we can use the `Link` component to let users change the search params
+</details>
 
-### Next Postgres
+<details><summary><h3>Next Postgres</h3></summary>
+
 - Just like data fetching, we can make database calls through the `pg` package directly from our components in Next.js
   - All we need to do is import `pg`, create our `pg.Pool`, and query the database directly
     ```js
@@ -303,8 +314,10 @@
   ```
   - `utils` isn't a special directory but it's used for this type of utility and others that we want to export and use across the app
   - Now instead of the whole process we did before, we can just do `import db from "@/utils/db"` on each page that needs it
+</details>
 
-### Client and Server Components
+<details><summary><h3>Client and Server Components</h3></summary>
+
 - SSR (Server-Side Rendering) is what differentiates Next.js from React but we can specify whether we want each component to be run on the client or server
 - Server components are the norm and should make up most of our app, but we need to use client components for things that server components can't do
 - Because all of the JS is run on the server before returning the finished page, server components can't run any JS after the page loads which means we can't use:
@@ -329,8 +342,10 @@
 - Client components can be imported into server components with no problem, but server components can't be imported into client components
   - This means we want to keep our client components as small and self-contained as possible like a single button as in the example above
   - This also means we need to pay more attention to where we are using state as it must be entirely contained to client components
+</details>
 
-### Forms and Server Functions
+<details><summary><h3>Forms and Server Functions</h3></summary>
+
 - Forms can be used on server components despite not being able to use event listeners, as we can use server functions
 - Server functions are functions that run on the server upon form submission to submit our form data to a database without the need for event listeners or API routes
 - There are a couple of steps for making server functions and connecting them to forms:
@@ -447,8 +462,10 @@
     }
     ```
     - It's not needed in this case but sometimes we'll need to include an input with `type="hidden"` to pass some other data through the `value` attribute
+</details>
 
-### Images in Next
+<details><summary><h3>Images in Next</h3></summary>
+
 - Instead of the standard `<img/>` tag we use the built-in `<Image/>` component in Next.js
 - This component improves on `<img/>` in a few ways:
   - It automatically serves the correct image size for your device without needing `srcset`
@@ -545,8 +562,10 @@
     );
   }
   ```
+</details>
 
-### Fonts in Next
+<details><summary><h3>Fonts in Next</h3></summary>
+
 - Fonts are imported differently in Next.js as Google fonts comes built into the framework
 - To use fonts from Google fonts we need to import them in `layout.js` from `"next/font/google"` then create an object with configuration option for the font
   ```js
@@ -649,8 +668,10 @@
     );
   }
   ```
+</details>
 
-### Styling in Next
+<details><summary><h3>Styling in Next</h3></summary>
+
 - Next.js has a few options for styling similarly to React
 - The `globals.css` file in `/app` works the same as a standard `style.css` file where we can style with our standard CSS selectors
 - We can use Tailwind too as long as we say yes to it when setting up the app with `create-next-app`
@@ -716,8 +737,10 @@
     }
     ```
     - The only thing to remember is that we need to give a name to the imported CSS module and preface any class names with this name e.g. `className={headerStyles.myClass}`
+</details>
 
-### Deploying to Vercel
+<details><summary><h3>Deploying to Vercel</h3></summary>
+
 - Next.js is created by Vercel which is handy because it means we can deploy Next apps easily to vercel.com
 - We need to connect Vercel to our GitHub account so we can select our repos to deploy our apps from
 - From the Vercel dashboard go to the 'Add New' dropdown and select 'Project'
@@ -728,3 +751,4 @@
 - We can't choose the region for the server that runs the code to build our app, but we can choose the region that our server functions run in
   - After deployment navigate to the project from the dashboard and go to the Settings tab (along the top) and the Functions tab (down the side)
   - Now we can choose the function region, though with the free version of Vercel we can only have one at a time which for us should be 'London, United Kingdom (West) - eu-west-2'
+</details>

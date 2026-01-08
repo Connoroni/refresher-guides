@@ -1,6 +1,7 @@
 # Week 4 Refresher Guide
 
-### Vite
+<details><summary><h3>Vite</h3></summary>
+
 - Until now we've been using VS Code's Live Server extension to serve our code, but there are more advanced tools we can use through the command line that produce better results when we deploy the site
 - Vite is a build tool that prioritises speed (Vite is French for 'fast') and optimisation
 - To create our client using Vite we run the command ```npm create vite@latest``` and we'll be given a series of options here on the app we want to create
@@ -18,8 +19,10 @@
   - Bundling - All the project files are bundled together into jsut a few files which reduces the number of HTTP requests needed and improves performance
   - Optimisation - Assets such as images and other static resources are optimised to be as efficient as possible
   - Code splitting - Our code is split into smaller chunks to be loaded on demand which improves performance by only loading code when it's necessary
+</details>
 
-### Building an API Server with Node and Express
+<details><summary><h3>Building an API Server with Node and Express</h3></summary>
+
 - The client can only handle certain tasks, so at a certain point we'll have to create a server to handle tasks that involve manipulating data
   - That point is now!
 - Our server is divided into different routes that handle different tasks, and we create endpoints to access each route
@@ -88,8 +91,10 @@
   - Give it the URL of the POST route and send a POST request in a JSON format, then see the response
 - You'll also see endpoints written with ```(req, res)``` instead of ```(request, response)``` because devs are lazy
 
+</details>
 
-### Environment Variables
+<details><summary><h3>Environment Variables</h3></summary>
+
 - Now that we're working with APIs and databases, we'll have sensitive information that we want to use without revealing so we can use environment variables
 - Environment variables are useful for handling information we want to keep secret or placeholder information that we want to store in one place to change universally (e.g. localhost and deployed URLs)
 - The package we'll use for handling environment variables is called ```dotenv``` and we can install and import it like any other package
@@ -130,8 +135,10 @@
   };
   ```
 - Since our environment variables are ignored by GitHub due to our `.gitignore` file, they won't be picked up by our deployed site so we'll have to provide them while setting up the deployment
+</details>
 
-### Deploying a Client and Server on Render
+<details><summary><h3>Deploying a Client and Server on Render</h3></summary>
+
 - To deploy the server to Render go to the 'Add new' dropdown and select 'Web Service'
   - Choose the GitHub repo containing both the client and server
   - Set 'Root directory' to be server, as we only want to deploy the server code here
@@ -149,8 +156,10 @@
 - Make sure to update the client code to point to the URL of the deployed server, not localhost
 - Note that Render servers shut down after 15 minutes of inactivity, so the next request after this will take longer as the server is waking up
   - A simple way to check whether the server is active is to go to the deployed server URL and check if you see the root route or the Render loading page
+</details>
 
-### User Inputs and POST
+<details><summary><h3>User Inputs and POST</h3></summary>
+
 - We can combine HTML forms with POST endpoints to allow for more meaningful user inputs, using fetch to send the data the user inputs to the server
 - We set up a form like normal in HTML
   ```html
@@ -187,8 +196,10 @@
     res.json({ status: "New name received" });
   }
   ```
+</details>
 
-### Databases and SQL
+<details><summary><h3>Databases and SQL</h3></summary>
+
 - Databases are the third part of the WRRC (Web Request-Response Cycle) and allow us to store data that can be accessed by the server and sent to the client
 - Think of databases like spreadsheets, each made up of tables with rows and columns
 - Each table stores data about a certain type of thing (e.g. users, posts, books, films) with a column for each property of an object (e.g. name, id, age, genre) and a row for each unique entry (e.g. a single user, post, book, or film)
@@ -240,8 +251,10 @@
     ```
     SELECT * FROM users WHERE id = '1'
     ```
+</details>
 
-### Connecting a Database to Our Apps
+<details><summary><h3>Connecting a Database to Our Apps</h3></summary>
+
 - We use a package called pg (it stands for Postgres) to connect a database to our server, and then we just fetch the data from the server to the client like we've done with APIs
 - Install the ```pg``` and ```dotenv``` packages in the server directory like any others with ```npm init -y``` and ```npm i pg dotenv```
 - We want to create a db object using the ```pg.Pool``` method and use it to send queries to our database 
@@ -326,8 +339,10 @@
       });
     }
     ```
+</details>
 
-### Query Strings on API GET Routes
+<details><summary><h3>Query Strings on API GET Routes</h3></summary>
+
 - Query strings are the part of a URL that comes after a `?` and are made up of key-value pairs like a JavaScript object
 - When querying a pre-made API we can use query strings to be more specific about what data we want to filter down to
 - In our client we'll create a function to fetch some data from an API like normal, but add a query string on the end to filter the data
@@ -368,3 +383,4 @@
     return data;
   }
   ```
+</details>

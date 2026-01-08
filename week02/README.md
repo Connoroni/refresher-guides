@@ -2,7 +2,7 @@
 
 You're two weeks into the course now and you've now had the opportunity to sink your teeth into some JavaScript. Here's a refresher of everything you've learned this week to refer back to later.
 
-### JS Arrays
+<details><summary><h3>JS Arrays</h3></summary>
 
 - Arrays are a data type in JavaScript that can store multiple pieces of data in a list
 - We create an array the same way we declare any variable but use the syntax of a list in square brackets separated by commas e.g.
@@ -30,8 +30,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
   - `array.shift()` removes the first element in the array and returns the value of that element
   - `array.unshit()` adds the argument to the beginning of the array at index 0
   - `array.reverse()` which reverses the order of elements in the array but doesn’t create a copy of it
+</details>
 
-### JS Loops
+<details><summary><h3>JS Loops</h3></summary>
 
 - Loops are used for tasks we want to repeat without having to invoke a function each time
 - There are several types of loops:
@@ -41,8 +42,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
   - `for… of` - executes the task once for each element in an array and assigns each element to a variable that can be used in the loop
   - `forEach()` - an array method that calls a callback function once for each element in an array
 - Loops are how we can iterate through the elements in an array to perform certain actions for each element
+</details>
 
-### JS Callback Functions
+<details><summary><h3>JS Callback Functions</h3></summary>
 
 - When we give a function as an argument for another function we call it a callback function
 - Some methods we use require a callback function to be one of the arguments, an example is the `array.forEach()` method
@@ -59,8 +61,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
   myFunction(anotherFunction);
   ```
   - This will run `myFunction` but also run the callback function `anotherFunction` in place of the parameter that we added when declaring the function
+</details>
 
-### JS Objects
+<details><summary><h3>JS Objects</h3></summary>
 
 - Objects are a way of storing multiple pieces of data related to each other, different to an array which stores a list of data
 - Objects are made up of key-value pairs which we can also call properties
@@ -90,8 +93,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
   console.log(user.userName);
   ```
 - Several things we interact with in JavaScript are actually objects that we can access properties of using dot notation including the document, the console, and arrays
+</details>
 
-### JS Object Methods
+<details><summary><h3>JS Object Methods</h3></summary>
 
 - Objects don't just have to store our standard data types, they can also store functions that we can invoke using dot notation
 - A function within an object is called a method
@@ -127,8 +131,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
     },
   };
   ```
+</details>
 
-### CSS Grid
+<details><summary><h3>CSS Grid</h3></summary>
 
 - Another tool we can use for the layout of our apps is grid
 - Grid creates a layout of rows and columns which we can then use to size and position elements
@@ -204,8 +209,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
     grid-area: header;
   }
   ```
+</details>
 
-### CSS Media Queries
+<details><summary><h3>CSS Media Queries</h3></summary>
 
 - Media queries allow us to apply styling based on conditions like screen size, dark mode/light mode, and orientation
 - By using media queries we can make our apps more responsive and accessible across different devices
@@ -222,23 +228,26 @@ You're two weeks into the course now and you've now had the opportunity to sink 
 - The media query doesn't need to contain every css property we want to be applied, those come from the regular css we write in the rest of the file, but just the ones we want to override when the conditions are met
 - We don't usually want to resize elements in media queries and mostly use them for changing layout as we can use responsive units like `vw` (view width) and `vh` (view height) to have elements take up a certain proportion of the screen at any screen size
 - Most of the time we want to design for mobile first and use media queries to apply styling for larger screens, as doing it the other way around is often more difficult
+</details>
 
-### HTML Image, Audio, and Video Elements
+<details><summary><h3>HTML Image, Audio, and Video Elements</h3></summary>
 
 - You will already be familiar with the `<img/>` tag but may not have used the `<audio/>` and `<video/>` tags
 - The `<img/>` tag needs a src attribute that lets us define the source of the image whether it is stored locally or hosted online
 - The `<audio/>` tag similarly needs a src attribute to get the audio from, but also needs the controls attribute to add the browser's default audio controls so the audio doesn't just autoplay
 - The `<video/>` tag also needs a src attribute to get the video from, and like `<audio/>` it also requires the controls attribute so we can't force users to watch a video with no way to pause it
+</details>
 
-### JS Interaction with Audio and Video Elements
+<details><summary><h3>JS Interaction with Audio and Video Elements</h3></summary>
 
 - The `<audio/>` and `<video/>` tags don't actually _need_ the controls attribute all of the time, as we can actually build our own controls using JavaScript
 - At minimum our controls should include play, pause, and volume controls
 - We can use events such as play, pause, load, and timeupdate on `<audio/>` and `<video/>` element just as we would use any other event to run a function when the users plays, pauses, etc.
 - `<audio/>` and `<video/>` elements have methods we can use such as `.play()` and `.pause()` that do exactly what we would expect, as well as properties such as `.volume` and `.muted` that we can also change the value of
   - This means we can create buttons like pause and play then add events that run these methods, allowing us to create our own controls for our media elements
+</details>
 
-### Accessibility with ARIA and WCAG
+<details><summary><h3>Accessibility with ARIA and WCAG</h3></summary>
 
 - ARIA (Accessible Rich Internet Applications) and WCAG (Web Content Accessibility Guidelines) are common acronyms that you'll see in relation to building accessible apps
 - ARIA is a set of attributes that we can add to HTML elements to improve accessibility to add more functionality to screenreaders, often with the aria-label attribute that lets us describe specific features of an app that don't have an equivalent HTML tag
@@ -248,8 +257,9 @@ You're two weeks into the course now and you've now had the opportunity to sink 
 - To test how accessible our apps are we can enable voiceover (CTRL+WIN+ENTER on Windows or CMD+F5 on Mac) and explore our different pages and features to see how well they're described by the voiceover
 - A quick metric we can use to test the accessibility of our apps is Google's lighthouse report which we can run from the lighthouse tab in the Chrome dev tools to see scores for performance, accessibility, best practices, and SEO
   - The lighthouse report returns some really useful data about what we can improve to increase the score in each category, so we can act on this to achieve higher scores and better accessibility practices
+</details>
 
-### Image Optimisation with srcset
+<details><summary><h3>Image Optimisation with srcset</h3></summary>
 
 - Images are larger and take longer to download than text so they can have a big effect on the performance of our apps
 - It makes sense to use better optimised images to ensure that users on older and/or slower devices can still achieve the desired experience on the app
@@ -273,3 +283,4 @@ You're two weeks into the course now and you've now had the opportunity to sink 
   ```
   - The url is used as the `src` and the `width` value (e.g. 500w) is the screen width at which that specific `src` will be used, with each pair of `src` and `width` separated by a comma
   - The appropriate src is selected from srcset on initial page load so it won't work with resizing the window in dev tools like media queries do
+</details>

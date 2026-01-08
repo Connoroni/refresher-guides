@@ -1,6 +1,7 @@
 # Week 9 Refresher Guide
 
-### User Authentication with Clerk
+<details><summary><h3>User Authentication with Clerk</h3></summary>
+
 - Authentication means checking the credentials (e.g. username and password) of a user so they can create and login to an account
 - There are a lot of authentication libraries out there but the one we're going to use is Clerk which has a lot of handy features and can be integrated nicely with Next.js
 - To setup Clerk we first set up a Next.js app as normal then follow the instructions in Clerk's [Next.js quickstart guide](https://clerk.com/docs/nextjs/getting-started/quickstart)
@@ -89,8 +90,10 @@
   - Keep in mind that this can't be used in client components
   - This is useful when we want to have data (such as posts) associated with users as we want to use the userId of the user who created the data to associate the data with the correct account
     - To do this though we'll need to connect our Clerk accounts to a database storing user profiles
+</details>
 
-### Clerk With SQL
+<details><summary><h3>Clerk With SQL</h3></summary>
+
 - Clerk on its own is great but often we'll want to store more data on users especially if we want to have data associated with each user
 - Clerk creates accounts but the only data that these generally have on users is their email and user id so we'll have to collect some more
 - We should create tables for users and posts (or any other kind of data that users are creating) with a one-to-many relationship
@@ -197,8 +200,10 @@
   - We could cut out a few lines by using `clerk_id` as the foreign key, but the problem with this is that it makes our app rely entirely on Clerk which isn't great for production apps that might switch to a different authentication library later on
   - We're using a conditional here with `if (!sqlId)` to check if the user has a profile, which is separate to `auth` that lets us check if they have an account
     - To get more fancy, we could add a redirect here to send users to the create-profile page
+</details>
 
-### Clerk Route Protection
+<details><summary><h3>Clerk Route Protection</h3></summary>
+
 - Often on our apps we want certain routes to be accessible only to users who are signed in, so we need to **protect** those routes
 - When we create our `proxy.js` file we export the `clerkMiddleware()` function from it, but we can add an argument to this function to protect our routes
   - We use a second function, `createRouteMatcher()`, to define which strings we want to be protected
@@ -243,8 +248,10 @@
       ],
     }
     ```
+</details>
 
-### Component Libraries
+<details><summary><h3>Component Libraries</h3></summary>
+
 - Component libraries are useful resources that contain pre-made components for us to import, customise, and use in our apps instead of having to make everything from scratch
 - There are a lot of options out there but the one we'll be using as an example is [Radix](https://www.radix-ui.com/)
 - We need to install Radix from npm like any other package or library with `npm i radix-ui`
@@ -276,15 +283,24 @@
   </details>
   - There is an explanation for each of the parts that make up the component and the different props and content we can add to each one
     - Some of these interact with state so we need to use `useState`, e.g. for things like the boolean `open` state for Dialog
+</details>
 
-### Error and Not Found Pages
-- 
+<details><summary><h3>Error and Not Found Pages</h3></summary>
 
-### Loading States and Suspense
 - 
+</details>
 
-### Animations with Motion
-- 
+<details><summary><h3>Loading States and Suspense</h3></summary>
 
-### TypeScript
 - 
+</details>
+
+<details><summary><h3>Animations with Motion</h3></summary>
+
+- 
+</details>
+
+<details><summary><h3>TypeScript</h3></summary>
+
+- 
+</details>

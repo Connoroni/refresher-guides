@@ -1,6 +1,7 @@
 # Week 7 Refresher Guide
 
-### React Router
+<details><summary><h3>React Router</h3></summary>
+
 - React Router is a package that lets us use multiple routes in our React apps and create Single Page Applications (SPAs)
 - An SPA is an app that is built with just one `index.html` files even if we use different routes that look like entirely different pages
   - This is different to multi-page apps we have seen before that have multiple `index.html` files with each one being a page
@@ -109,8 +110,10 @@
   }
   ```
   - Here we're also using the `Link` component provided by React Router, which is very similar to an anchor tag but takes a prop of `to` instead of an attribute of `href`
+</details>
 
-### Dynamic and Nested Routes
+<details><summary><h3>Dynamic and Nested Routes</h3></summary>
+
 - Sometimes we don't want to hard code every single page for every route and instead want data on the page depending on a parameter in the URL, this is a dynamic route
 - Examples of dynamic routes are posts and accounts on social media sites: no developer has gone through and made a page for every post and every account but instead they create a dynamic route that can render any account's data
   - This could look something like `twitter.com/users/myusername` which would render the data for a user called 'myusername'
@@ -183,8 +186,10 @@
     )
   }
   ```
+</details>
 
-### React Router Query Strings
+<details><summary><h3>React Router Query Strings</h3></summary>
+
 - Query strings let us add extra data to the URL beyond the parameters for dynamic pages, usually for filtering or sorting data on the page
   - Query strings come after a `?` in a URL and are written as key-value pairs similar to JavaScript objects e.g. `sort=desc`
     - If there are multiple key-value pairs we separate them with an `&` e.g. `userid=5&sort=asc&stealdata=1`
@@ -254,8 +259,10 @@
     <Link to="/?sort=asc>Ascending</Link>
     <Link to="/?sort=desc">Descending</Link>
     ```
+</details>
 
-### React Forms and Validation
+<details><summary><h3>React Forms and Validation</h3></summary>
+
 - There are a few ways to write forms in React but the one we'll cover is a controlled form that stores the value in state whenever the values change, and submits those stored values when we submit the form
 - We start by making a form like normal in JSX using `form`, `label`, `input`, and `button` elements but with only a `name` prop not an `id`
   ```js
@@ -357,8 +364,10 @@
     - Here we're using the spread operator `...` which takes the existing properties in the object, and we're using dyanmic keys (`[event.target.name]`) to target different properties in the object depending on which input field we edit
       - Dynamic keys can be used elsewhere to let us access a value as a property name instead of hardcoding it
       - What this achieves in combination is to give us access to the formValues object and change the value in an individual property when we change the value of any of our inputs
+</details>
 
-### React Timers and Polling
+<details><summary><h3>React Timers and Polling</h3></summary>
+
 - Timers in React need to be handled in `useEffect` as they interact with features that aren't controlled by React, just like when we use fetch
 - Remember that useEffect lets us run some code once when the component mounts (the first render) and not need to be re-run on each render
   - We want timers to be added (and other side-effects to be run) on mounting but not be added again each time the component re-renders or we'd end up with duplicate timers running
@@ -417,8 +426,10 @@
   ```
   - With the cleanup function we will only ever have one timer running at once
 - This same syntax can be used whenever we want to ensure that something is only added/created once, maybe to do direct DOM manipulation like adding event listeners
+</details>
 
-### Design Methodologies
+<details><summary><h3>Design Methodologies</h3></summary>
+
 - Design methodologies build on the design principles that we've covered previously, this time thinking about how we can actually implement these principles
 - Different design methodologies go in and out of fashion, here is a list of some of the better known ones:
   - Skeumorphism
@@ -487,8 +498,10 @@
     - Use shades of grey instead of black and white, but don't overuse them
     - Use tools to check contrast for accessibility
     - Keep colours soft and balanced to maintain harmony
+</details>
 
-### Relational Databases
+<details><summary><h3>Relational Databases</h3></summary>
+
 - Using SQL for databases lets us create relational databases meaning that entries in different tables can be connected together
 - There are three types of relations that we can have:
   - One-to-one 
@@ -614,3 +627,4 @@
   - OUTER JOIN: Returns all records that have values in either or both tables
   - LEFT JOIN: Returns all records from the left table and any matching records in the right
   - RIGHT JOIN: Returns all records from the right table and any matching records in the left
+</details>
