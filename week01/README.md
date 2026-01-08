@@ -2,13 +2,14 @@
 
 Congratulations, you’ve finished the first week! You’ve learned so much this week and it’s probably gone so quickly. Here's a refresher of everything we've covered so you can refer back to it.
 
-### How the Internet Works
+<details><summary><h3>How the Internet Works</h3></summary>
 
 - The WRRC (Web Request Response Cycle) - how the client and server communicate by sending requests and recieving responses
 - The DNS (Domain Name Server) - converts a website’s domain name to an IP address
 - Parts of a URL - protocol://domain.name/path?query=string
+</details>
 
-### The Terminal
+<details><summary><h3>The Terminal</h3></summary>
 
 - We always use a command followed by the thing we're running the command on (called an operand but that's not important)
   - For example we can't just do `mkdir` we have to do `mkdir directoryname`, and we can't just do `touch` without specifying the file name `touch index.html`
@@ -21,28 +22,32 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Create new files using `touch`, but remember the file extension e.g. `touch index.html`
 - Open the current directory in VS Code using `code .`
 - We can autocomplete in the terminal using the `Tab` key if we start typing the name of a file/directory
+</details>
 
-### VS Code
+<details><summary><h3>VS Code</h3></summary>
 
 - Open directories in VS Code using code . in the terminal
 - Create files in VS Code by clicking the 'New file...' button next to the directory name
   - This is the same as using the `touch` command in the terminal
 - For now we'll always want to start by creating an `index.html` file
+</details>
 
-### HTML Tags
+<details><summary><h3>HTML Tags</h3></summary>
 
 - HTML elements are created with opening and closing tags with content between them
 - Some elements are self closing and have no content e.g. `<img/>` or `<br/>`
 - Tags are the bits enclosed in the `<` `>` (e.g. `<h1>`) but elements are the whole thing with the tags and the content (e.g. `<h1>My Title</h1>`)
   - You may hear these terms used interchangably if we talk about "creating a `<p>` tag" etc.
+</details>
 
-### HTML Attributes
+<details><summary><h3>HTML Attributes</h3></summary>
 
 - We can modify HTML elements by adding attributes
 - Attributes go inside the opening tag e.g. `<img src="image-source.jpg">`
 - Examples of attributes are `src`, `alt`, `href`, `class`, and `id`
+</details>
 
-### HTML Structure
+<details><summary><h3>HTML Structure</h3></summary>
 
 - We should use semantic HTML tags that match how the element is used on the page
 - The `<head>` tag holds metadata such as the page title and linked CSS and JS files
@@ -52,8 +57,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Use `<div>` and `<section>` to dive the page up and group elements together
   - Generally `section` should be used for meaningful sections on the page while `div` is used for elements we want to group for styling or for other reasons
 - Only certain elements like `<p>` or `<h1>` should have text inside them, if we want text inside a `<div>`, `<nav>`, `<footer>` or other element then we should create one of these text elements inside it
+</details>
 
-### CSS Properties
+<details><summary><h3>CSS Properties</h3></summary>
 
 - Link our CSS file to our index.html using `<link rel="stylesheet" href="fileName.css" />`
 - Emmet abbreviations in VS Code will autofill this if we type `link:css`
@@ -67,8 +73,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   ```
 - Some common properties are `background-color`, `color` (for text color), `height`, `width`, `display`, `margin`, and `padding`
   - Remember: We have to spell 'color' the American way without a 'u'!
+</details>
 
-### CSS Selectors
+<details><summary><h3>CSS Selectors</h3></summary>
 
 - Elements can be selected using more than just the tag name
 - We often use `.class` to target specific elements or groups of elements, using a `class` attribute that we've given them in HTML
@@ -79,8 +86,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - We can use the universal selector `*` to select all elements
   - We may want to do this at the beginning of a CSS file to override browser default styles
   - This selects each element individually so if you set a property here it will apply to each element, not the whole document
+</details>
 
-### Dev Tools
+<details><summary><h3>Dev Tools</h3></summary>
 
 - We can inspect a webpage (right-click and inspect) to open our dev tools and view the elements on the page
   - The shortcut for this is `F12`
@@ -89,16 +97,18 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - The styles tab shows the CSS styles applied to an element, some from specific styling written by the dev and some from the browser default (user agent stylesheet)
 - We can edit CSS styles in the styles tab manually and use the tickbox to toggle each property on and off entirely
 - Any changes we make in the elements or styles tabs are temporary and are cleared when we refresh the page, but it can be helpful for testing out different styling options in real-time
+</details>
 
-### The Box Model
+<details><summary><h3>The Box Model</h3></summary>
 
 - Every element exists in a rectangular box, even if it the element doesn’t look like a rectangle
 - The box doesn’t just include the size of the content in the element it also includes the `padding`, `border`, and `margin` that surround the element
 - Padding pushes the content inwards from the border of the element
 - Border creates a line (which can be solid, dashed, dotted, etc.) around the outside of the element between the padding and the margin
 - Margin creates a space around the border of the element to push away other elements, but it doesn’t carry the styling of the element e.g. background-color
+</details>
 
-### CSS Positioning
+<details><summary><h3>CSS Positioning</h3></summary>
 
 - We can add the `position` property to an element in CSS, with values of `static`, `absolute`, `relative`, `fixed`, and `sticky`
 - We add the `top`, `bottom`, `left`, and `right` values to "push" the element away from those borders e.g. `top: 20px` will position the element 20px away from the top
@@ -107,8 +117,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Relative - the element is positioned relative to other elements but still exists in normal document flow, this is often used to create a parent for an absolute element
 - Fixed - the element maintains a specific position on the screen regardless of where the user scrolls
 - Sticky - similar to fixed position the element maintains a specific position on the screen but only when the user scrolls to it
+</details>
 
-### CSS Flexbox
+<details><summary><h3>CSS Flexbox</h3></summary>
 
 - Flexbox is a modern and responsive way of laying out elements on a page, letting us arrange them in a row or column
 - We give the `display: flex` property in CSS to the parent element when we want to use flex on its children
@@ -120,8 +131,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - The `flex-wrap` property determines how the elements will be positioned if they fill the flex container, should they spill out of the container (`flex-wrap: no-wrap;`) or be pushed onto a second row/column (`flex-wrap: wrap;`)?
   - An extra property we can use when flex-wrap is on is `align-content` which controls the layout of the individual lines that are wrapped
 - Even if we have only one element, flex is a great way to centre it within its parent element
+</details>
 
-### Git Essentials
+<details><summary><h3>Git Essentials</h3></summary>
 
 - Git is a version control system that allows developers to manage their code with updates, branches, and collaboration
 - Github is a website created by Microsoft that uses Git, we use it to store our work remotely
@@ -145,16 +157,18 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   - Use the `git push` command to push all your changes to Github, updating your remote repository to add the code you’ve written locally
 - To deploy the site to Github pages go to settings > pages > branch and change the branch from "none" to "main" which will deploy the main branch to Github pages
   - Make sure to go to the settings page for the repo, not for our profile
+</details>
 
-### The Console
+<details><summary><h3>The Console</h3></summary>
 
 - The console tab in dev tools tracks anything logged to the console through the console API
 - It’s most often used for errors and for printing values as our code executes
 - Very useful for debugging as we can keep track of values to see what the app is doing
 - The most common JavaScript method we use to add to the console is `console.log()`
 - We can also use the method `console.error()` to have the message appear as an error in the console instead of a standard message
+</details>
 
-### JS Primitive Data Types
+<details><summary><h3>JS Primitive Data Types</h3></summary>
 
 - Data is information that we store in the computer's memory, but there are different types of data that get treated differently, e.g. we can do maths with numbers but not with words
 - The primitive data types are: `number`, `string`, `boolean`, `undefined`, and `null`
@@ -168,8 +182,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Undefined - a value hasn’t been assigned yet, usually seen if we try to access a variable that has no value
 - Null - not to be confused with undefined, null is a value that is assigned manually to represent nothing
 - An easy way to see different data type behaviours is trying to do maths with them, only numbers will add together as expected while everything else will concatenate
+</details>
 
-### JS Operators
+<details><summary><h3>JS Operators</h3></summary>
 
 - Operators are symbols that we use to carry out actions in JavaScript
 - Some of them are mathematical symbols like `+`, `-`, `=`, `<`, and `>`
@@ -206,8 +221,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     - `<` Less than
     - `!=` Not equal
 - There are loads of other operators and we'll only encounter some of them through the bootcamp, but it's an interesting topic to look into because they can be very handy
+</details>
 
-### JS Variables
+<details><summary><h3>JS Variables</h3></summary>
 
 - Variables are a way of storing data in JavaScript, allowing us to refer to the variable name in our code instead of the value
 - Values in a variable can be any data type whether that’s a primitive one like a string or number, or a complex one like an object or array
@@ -215,8 +231,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - When we declare a variable we use `let variableName = value` or `const variableName = value` but when we change the value we drop the keyword so it's `variableName = value`
   - We can never change the value of a variable declared with `const`, but VS Code will warn us about this with an error
 - Using let we can declare a variable with no initial value, just `let variableName`
+</details>
 
-### The DOM (Document Object Model)
+<details><summary><h3>The DOM (Document Object Model)</h3></summary>
 
 - The DOM is the data representation of the HTML document in the browser, representing it as a series of nodes and objects
 - Nodes are the individual elements and attributes in the HTML document
@@ -231,8 +248,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   - We can also invoke methods of the element object such as `setAttribute()`, `addEventListener()`, and `appendChild()`
 - We can create new elements as DOM nodes using the `document.createElement()` method, adding an argument to specify the tag we want to create e.g. `const newImg = document.createElement("img")`
 - We can remove an element from the DOM by selecting it then using the `remove()` method e.g. `newImg.remove()`
+</details>
 
-### JS Conditionals
+<details><summary><h3>JS Conditionals</h3></summary>
 
 - Conditionals are how we tell a block of code to run only under certain conditions
 - We use the keywords `if`, `else if`, and `else`
@@ -260,8 +278,9 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     }
     ```
 - Like all JavaScript, conditionals are read top to bottom so the code will execute the first block of code where the condition is true even if there are multiple conditions that are true
+</details>
 
-### JS Functions
+<details><summary><h3>JS Functions</h3></summary>
 
 - Functions are self-contained blocks of code contained in {curly brackets} that execute a certain task
 - Functions help break up our code into smaller pieces and can be reused whenever we want the task to happen
@@ -313,16 +332,18 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
       console.log(word)
     }
     ```
+</details>
 
-### JS Scope
+<details><summary><h3>JS Scope</h3></summary>
 
 - Not all variables we declare can be used anywhere in our code and it depends on the scope of the variables
 - A variable declared outside of any function can be used anywhere, this is called global scope
 - A variable declared inside a function can only be used inside that function, this is called function scope
 - For larger apps using too much global scope can cause memory problems because the variable is never cleared from memory so it can be accessed at any time, while variables within function scope only exist while the function is being executed
 - We can reuse variable names in different functions if they have function scope but we can never reuse the name of a globally scoped variable
+</details>
 
-### JS Events
+<details><summary><h3>JS Events</h3></summary>
 
 - Events are how we allow users to interact with our JavaScript by adding event listeners that "listen" for a certain event
 - The two parts of an event are the event listener and the event handler
@@ -340,3 +361,4 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     console.log(event); // This will log the event object containing loads of data about the specific event
   }
   ```
+</details>
