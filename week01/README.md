@@ -2,6 +2,8 @@
 
 Congratulations, you’ve finished the first week! You’ve learned so much this week and it’s probably gone so quickly. Here's a refresher of everything we've covered so you can refer back to it.
 
+You can click on each of the titles below to open a dropdown with the content of each topic.
+
 <details><summary><h3>How the Internet Works</h3></summary>
 
 - The WRRC (Web Request Response Cycle) - how the client and server communicate by sending requests and recieving responses
@@ -12,7 +14,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 <details><summary><h3>The Terminal</h3></summary>
 
 - We always use a command followed by the thing we're running the command on (called an operand but that's not important)
-  - For example we can't just do `mkdir` we have to do `mkdir directoryname`, and we can't just do `touch` without specifying the file name `touch index.html`
+  - For example we can't just do `mkdir` we have to do `mkdir directoryName`, and we can't just do `touch` without specifying the file name `touch index.html`
 - Navigate between directories (aka folders) using `cd`
   - We can go up by one directory using `cd ..`
   - We can move multiple directories at once by using a `/` e.g. `cd bootcamp/week01/html-tags` or `cd ../week02`
@@ -38,7 +40,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Some elements are self closing and have no content e.g. `<img/>` or `<br/>`
 - Tags are the bits enclosed in the `<` `>` (e.g. `<h1>`) but elements are the whole thing with the tags and the content (e.g. `<h1>My Title</h1>`)
   - You may hear these terms used interchangably if we talk about "creating a `<p>` tag" etc.
-</details>
+  </details>
 
 <details><summary><h3>HTML Attributes</h3></summary>
 
@@ -68,12 +70,12 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - Styles are written with the property name followed by the value e.g.
   ```css
   element {
-    property: value
+    property: value;
   }
   ```
 - Some common properties are `background-color`, `color` (for text color), `height`, `width`, `display`, `margin`, and `padding`
   - Remember: We have to spell 'color' the American way without a 'u'!
-</details>
+  </details>
 
 <details><summary><h3>CSS Selectors</h3></summary>
 
@@ -86,7 +88,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - We can use the universal selector `*` to select all elements
   - We may want to do this at the beginning of a CSS file to override browser default styles
   - This selects each element individually so if you set a property here it will apply to each element, not the whole document
-</details>
+  </details>
 
 <details><summary><h3>Dev Tools</h3></summary>
 
@@ -157,7 +159,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   - Use the `git push` command to push all your changes to Github, updating your remote repository to add the code you’ve written locally
 - To deploy the site to Github pages go to settings > pages > branch and change the branch from "none" to "main" which will deploy the main branch to Github pages
   - Make sure to go to the settings page for the repo, not for our profile
-</details>
+  </details>
 
 <details><summary><h3>The Console</h3></summary>
 
@@ -191,30 +193,30 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - The most basic one is `+` which adds two values together
   - If the values are numbers then they'll be added together mathematically
     ```js
-    console.log(1 + 2) //3
+    console.log(1 + 2); //3
     ```
   - If the values are anything other than numbers they will be concatenated (basically jammed together)
     ```js
-    console.log('1' + '2') //12
-    console.log('Hello' + true) //Hellotrue
+    console.log("1" + "2"); //12
+    console.log("Hello" + true); //Hellotrue
     ```
   - Because of this it's handy for adding values in strings, just remember to add a space if you want one
     ```js
-    const myName = 'Connor'
-    console.log ('Hello my name is ' + Connor)
+    const myName = "Connor";
+    console.log("Hello my name is " + Connor);
     ```
 - The other mathematical operators (`-`, `*`, `/`) only work on numbers and will give `NaN` (Not a Number) when used on any other data types
 - The operator we use most often is `=` which is the assignment operator
 - `=` is different to `==` which is the equal operator
   - `==` tells us whether two values are equal and returns either true or false
     ```js
-    console.log(1 == 1) //true
-    console.log(1 == 2) //false
+    console.log(1 == 1); //true
+    console.log(1 == 2); //false
     ```
-  - There's also `===` which is the strict equal operator that tells us if the value *and* data type are the same
+  - There's also `===` which is the strict equal operator that tells us if the value _and_ data type are the same
     ```js
-    console.log(1 == '1') //true
-    console.log(1 === '1') //false
+    console.log(1 == "1"); //true
+    console.log(1 === "1"); //false
     ```
   - There are more comparison operators that work the same way
     - `>` Greater than
@@ -241,7 +243,7 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
 - The main JavaScript methods we use to select existing elements are `document.querySelector()` and `document.getElementById()`
   - `document.getElementById()` selects elements by the id as you may have guessed
   - `document.querySelector()` can select elements similarly to how we do in CSS using class, attributes, etc.
-  - It can be easier to get into the habit of always using 
+  - It can be easier to get into the habit of always using
 - We usually select DOM elements by assigning the return value of these methods to a variable e.g. `const myImg = document.getElementById(“myImg”)`
 - The selected element is an object containing many different properties and methods
   - Once assigned to a variable we can manipulate the properties of the element such as `textContent`, `className`, style the same way we would alter the properties of any object e.g. `myTitle.textContent = "This is a Title"`
@@ -270,11 +272,11 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   - A typical conditional could look something like this
     ```js
     if (username === "Jeff") {
-      console.log("You are Jeff and you're allowed here")
+      console.log("You are Jeff and you're allowed here");
     } else if (username === "Bob") {
-      console.log("You are Bob and you're not allowed her")
+      console.log("You are Bob and you're not allowed her");
     } else {
-      console.log("You are ", username, " but I don't know you")
+      console.log("You are ", username, " but I don't know you");
     }
     ```
 - Like all JavaScript, conditionals are read top to bottom so the code will execute the first block of code where the condition is true even if there are multiple conditions that are true
@@ -291,16 +293,19 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   }
   ```
 - We need to declare a function using the syntax above then invoke it using the function name followed by a pair of parentheses `()`
+
   ```js
   // Declare the function
   function myFunction() {
     console.log("Something");
   }
-  
+
   // Then invoke the function
   myFunction();
   ```
+
   - We often say that we 'call' a function instead of 'invoke' it, this means the same thing but is one syllable shorter
+
 - Functions can be given arguments which allow us to vary exactly what the function does depending on the data we give it as an argument e.g.
   ```js
   function myFunction(word) {
@@ -317,22 +322,25 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
   }
   ```
 - Taking anonymous functions even further we can create arrow functions which also have no name but don’t even need the function keyword:
+
   ```js
   () => {
-    console.log("It’s an arrow function because we use an arrow(=>)")
-  }
+    console.log("It’s an arrow function because we use an arrow(=>)");
+  };
   ```
+
   - Both anonymous functions and arrow functions can still take arguments like named functions can, they just go in the brackets
     ```js
     function(word) {
-      console.log(word)
+    console.log(word)
     };
 
-    (word) => {
-      console.log(word)
-    }
-    ```
-</details>
+        (word) => {
+          console.log(word)
+        }
+        ```
+
+    </details>
 
 <details><summary><h3>JS Scope</h3></summary>
 
@@ -361,4 +369,4 @@ Congratulations, you’ve finished the first week! You’ve learned so much this
     console.log(event); // This will log the event object containing loads of data about the specific event
   }
   ```
-</details>
+  </details>
