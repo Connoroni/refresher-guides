@@ -287,7 +287,35 @@
 
 <details><summary><h3>Error and Not Found Pages</h3></summary>
 
-- 
+- By default we get some scary looking pages and messages when an error occurs or when we navigate to a page that doesn't exist, but this isn't very user friendly
+- Next has file conventions (like `layout.js` and `page.js`) that we can use to create files to be shown when users encounter an error including a special one for a 404
+- We can create a `not-found.js` page to handle 404 errors, meaning the page the user has navigated to can't be found
+  ```js
+  {/* /users/[id]/not-found.js */}
+  import Link from "next/link";
+
+  export default function UserNotFound() {
+    return(
+      <div>
+        <h2>Sorry, we couldn&apos;t find that user</h2>
+        <Link href="/">Take me home</Link>
+      </div>
+    );
+  }
+  ```
+  - These go in a dynamic route in the same location as the `page.js`
+  - We need to run the `notFound()` function provided by Next, so think about the conditions that should trigger this (usually if the relevant data can't be found in the database)
+    ```js
+    {/* /users/[id]/page.js */}
+    import { db } from "@/utils/db.js";
+    import { notFound } "next/navigation";
+
+    export default async function UserPage() {
+      const { id } = await params;
+
+      const 
+    }
+    ```
 </details>
 
 <details><summary><h3>Loading States and Suspense</h3></summary>
