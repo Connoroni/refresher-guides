@@ -67,16 +67,16 @@
   ```
   - The above example will give three headers, maybe not the best use of reusing components
 - For various reasons (usually CSS styling) we don't always want our components to be wrapped in an element like a div, but React forces us to have one parent element per component with everything else nested inside it so we need to use a fragment which looks like an empty HTML tag `<>`
-```js
-export default function BodyText() {
-  return (
-    <>
-      <h2>Subheading</h2>
-      <p>Lorem ipsum something something...</p>
-    </>
-  )
-}
-```
+  ```js
+  export default function BodyText() {
+    return (
+      <>
+        <h2>Subheading</h2>
+        <p>Lorem ipsum something something...</p>
+      </>
+    )
+  }
+  ```
   - We need to do this because functions, even component functions, can only return one thing so we need one parent element even if it's a fragment
   - Now our `h2` and `p` elements will be nested inside whatever the component is nested in, with no fragment to be seen which can be conformed if we look in dev tools
 - We can import components into other components to use them there, but ultimately everything ends up imported into `App.jsx` which is in turn imported into `main.jsx` where it is rendered inside the `root` div
@@ -87,21 +87,21 @@ export default function BodyText() {
 - Props allow us to customise our components so that they aren't the same each time we use them, useful if we have something like an image component that we want to have different `src` an `alt` each time we use it
 - If we think of components like HTML elements, then props are like attributes that can change things about our components
 - We 'pass' props by setting them in the parent component each time we use the imported child component
-```js
-import ImageAndLabel from "./components/ImageAndLabel"
-
-export default function App() {
-  return (
-    <>
-      <ImageAndLabel
-        label="A Lovely Cat"
-        source="https://unsplash.com/photos/75715CVEJhI"
-        alt="A fluffy orange cat with big ears and long whiskers"
-      />
-    </>
-  )
-}
-```
+  ```js
+  import ImageAndLabel from "./components/ImageAndLabel"
+  
+  export default function App() {
+    return (
+      <>
+        <ImageAndLabel
+          label="A Lovely Cat"
+          source="https://unsplash.com/photos/75715CVEJhI"
+          alt="A fluffy orange cat with big ears and long whiskers"
+        />
+      </>
+    )
+  }
+  ```
 - The child component needs to accept props matching the ones we're passing to it, very similarly to using parameters in a function so we can pass arguments
   ```js
   export default function ImageAndLabel(props) {
@@ -166,30 +166,30 @@ export default function App() {
   ```
   - By default we have `App.css` and `index.css` created by the Vite template, we can delete one of these and write our CSS in the other if we want to use this method
 - Just like we split up our JSX into separate component files we can also split up our CSS for each component then import them into the relevant component file
-```js
-// Header.jsx
-import "./Header.css"
-
-export default function Header() {
-  return (
-    <header>
-      <h1 className="header-title">Here's the Title</h1>
-      <img
-        src="/logo"
-        className="logo-img"
-      />
-    </header>
-  )
-}
-```
-```css
-/* Header.css */
-.header-title {
-  color: #fff;
-  padding: 1rem;
-  text-decoration: underline;
-}
-```
+  ```js
+  // Header.jsx
+  import "./Header.css"
+  
+  export default function Header() {
+    return (
+      <header>
+        <h1 className="header-title">Here's the Title</h1>
+        <img
+          src="/logo"
+          className="logo-img"
+        />
+      </header>
+    )
+  }
+  ```
+  ```css
+  /* Header.css */
+  .header-title {
+    color: #fff;
+    padding: 1rem;
+    text-decoration: underline;
+  }
+  ```
   - We can't use tag selectors in CSS to target just the elements in the desired component because the component will be imported into `App.jsx` and take the imported CSS file with it, meaning every instance of that tag would be selected across all components
 - The third method is to use [Tailwind CSS](https://tailwindcss.com/), a CSS framework that lets us handle styling inline through the className attribute with shorthands and presets without needing a separate CSS file
   - We need to install tailwindcss and @tailwindcss/vite through npm `npm install tailwindcss @tailwindcss/vite`
@@ -445,7 +445,7 @@ export default function Header() {
 - More often in React we'll see a `.map` done inline in our returned JSX which works just as well in less lines
   ```js
   export default function App() {
-    const numberArray = [5, 19, 25, 17, 42]```
+    const numberArray = [5, 19, 25, 17, 42]
   
     return (
       <ul>
@@ -495,28 +495,28 @@ export default function Header() {
 - The useEffect hook takes two arguments: a callback function and a dependency array
   - The callback function runs every time one of the values in the dependency array changes, or if we leave it empty then it only runs when the component renders
 - To fetch data from an external source in React we'll use useEffect and useState together so we can store the fetched data in state
-```js
-import { useEffect, useState } from "react";
-
-export default function App() {
-  const [posts, setPosts] = useState([]);
+  ```js
+  import { useEffect, useState } from "react";
   
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      const data = await response.json();
-      setPosts(data);
-    }
-    fetchData();
-  }, [])
-  
-  return(
-    {/* ... */}
-  )
-}
-```
+  export default function App() {
+    const [posts, setPosts] = useState([]);
+    
+    useEffect(() => {
+      async function fetchData() {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/posts"
+        );
+        const data = await response.json();
+        setPosts(data);
+      }
+      fetchData();
+    }, [])
+    
+    return(
+      {/* ... */}
+    )
+  }
+  ```
   - The function needs to be async because we're fetching data but the callback function passed to `useEffect` can't be async, so we use an arrow function and declaring a function within it then call that function
   - The dependency array here is empty so the effect is run once when the component is rendered
 - Often the data we're fetching comes in the form of an array so we'll want to map through the data once it's stored in state

@@ -12,7 +12,7 @@
     <input type="number" name="age" />
   </form>
   ```
-- A ```<form>``` on its own won't do anything if we don't have a way to submit it, so we also need to include a ```<button>``` nested inside it and we add the ```type="submit"``` attribute to the button:
+- A `<form>` on its own won't do anything if we don't have a way to submit it, so we also need to include a `<button>` nested inside it and we add the `type="submit"` attribute to the button:
   ```html
   <form>
     <label for="username">Username:</label>
@@ -22,7 +22,7 @@
     <button type="submit">Submit the form</button>
   </form>
   ```
-- The type attribute on an ```<input>``` element determines the type of data the user can input, there are too many options to go over here but here are some examples on MDN - https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/HTML5_input_types
+- The type attribute on an `<input>` element determines the type of data the user can input, there are too many options to go over here but here are some examples on MDN - https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/HTML5_input_types
 - Another useful attribute is required which is used to ensure that an input field has something in it so we can differentiate between fields that are optional and those that aren't
 - On the JavaScript side of things submit is an event that we can create an event listener and handler for like any other event
   - Remember: The submit event needs to be attached to the form itself, not the button or any of the inputs!
@@ -197,16 +197,16 @@
 <details><summary><h3>NPM Project Setup</h3></summary>
 
 - NPM (Node Package Manager) is a tool that lets us install packages, by which we mean third party code to be used in our app
-- To initialise NPM in a project we run ```npm init -y``` in the terminal which creates a `package.json` file
+- To initialise NPM in a project we run `npm init -y` in the terminal which creates a `package.json` file
   - `package.json` contains information on our project including the installed packages and any scripts we can run
-- To install a package we run ```npm install <package-name>``` which we can abbreviate to ```npm i <package-name>``` if we want to be lazy/efficient
-  - Running ```npm install``` or ```npm i``` without a package name will install all the packages a project requires which are read from `package.json`
+- To install a package we run `npm install <package-name>` which we can abbreviate to `npm i <package-name>` if we want to be lazy/efficient
+  - Running `npm install` or `npm i` without a package name will install all the packages a project requires which are read from `package.json`
 - Installing a package will create a node_modules folder which contains all the code for the package, but there will probably be more packages than those we installed because we also install any dependencies of our installed packages (packages that are required by the installed packages)
 - We will also have a package-lock.json, a file similar to our `package.json` that contains more details on all the installed packages, but we never need to change anything in here
 - To be able to use an installed package we need to import it and there are two ways to do this:
-  - The CommonJS way uses the line ```js const *package* = require("*package*") ``` e.g. ```js const cowsay = require("cowsay")```
-  - The modern ES6 way uses the line ```js import *package* from "*package*" ``` e.g. ```js import cowsay from "cowsay"```
-    - To do this we need to add a line in our package.json first to enable this: ```"type": "module",```
+  - The CommonJS way uses the line `const *package* = require("*package*") ` e.g. ` const cowsay = require("cowsay")`
+  - The modern ES6 way uses the line `import *package* from "*package*"` e.g. `js import cowsay from "cowsay"`
+    - To do this we need to add a line in our package.json first to enable this: `"type": "module",`
       - This can go anywhere in the file as long as it's only within the main object and not within any of the other objects
 - Inside `package.json` is a "scripts" object that contains scripts we can run through npm, and it's a common convention to add a "dev" script here to let us run our app in development mode 
   ```js 
@@ -214,25 +214,25 @@
     "dev": "node app"
   }
   ```
-  - Now instead of running `node app` (or whatever js file we want to run) in the terminal we can run ```npm run dev``` and this will run the dev script
-    - This may not sound like a time saver but it's worth getting used to because other frameworks and tools we will cover use a dev script to do more complex tasks than running ```node app```
+  - Now instead of running `node app` (or whatever js file we want to run) in the terminal we can run `npm run dev` and this will run the dev script
+    - This may not sound like a time saver but it's worth getting used to because other frameworks and tools we will cover use a dev script to do more complex tasks than running `node app`
 - Our node_modules folder with all the files of our dependencies can get pretty big so we don't want to push it to Github with the rest of our project, which we do by creating a `.gitignore` file
   - In the `.gitignore` file we just add `node_modules` (and any other files or folders that we don't want to be pushed to Github)
-  - Now when someone clones our repo from Github they just need to run ```npm install``` or ```npm i``` to install all the packages and get the `node_modules` folder that we didn't push
+  - Now when someone clones our repo from Github they just need to run `npm install` or `npm i` to install all the packages and get the `node_modules` folder that we didn't push
 </details>
 
 <details><summary><h3>Unit Testing with Vitest</h3></summary>
 
 - Unit testing is the testing of small pieces of code in isolation such as a single function
 - Unit testing is made more difficult by using global variables as our tests won't have access to these, so we often want to avoid global variables if possible
-- We can make a test file such as `app.test.js` (assuming our main js file is app.js) where we can import our functions from the file they were written in e.g. ```js import {isPalindrome, toTitleCase} from "./app"; ```
+- We can make a test file such as `app.test.js` (assuming our main js file is app.js) where we can import our functions from the file they were written in e.g. `import {isPalindrome, toTitleCase} from "./app";`
   - To be able to import these functions in the test file we need to first export the functions from the file they're written in e.g. 
     ```js
     export function isPalindrome(string) {
       //function goes here
     }
     ```
-- Vitest is a package we can use to run these tests for us but first we need to import some functions from the package ```import { test, expect, describe } from "vitest";```
+- Vitest is a package we can use to run these tests for us but first we need to import some functions from the package `import { test, expect, describe } from "vitest";`
 - We use these to create individual tests for our functions and tell us whether the test outputs the expired result or not
 - `describe()` takes a string and a callback function as arguments and the callback function should include `test()` which also takes a string and a callback function as arguments so we can give a label to the whole block of tests and each individual test:
   ```js
@@ -248,7 +248,7 @@
   });
   ```
   - We use the result returned by our function as an argument of `expect()` and use the `.toBe()` method to compare the result to the expected result
-- We run the tests using ``` npx vitest ``` or we can create a test script in our package.json so we can do the same with ```npm run test```
+- We run the tests using `npx vitest` or we can create a test script in our package.json so we can do the same with `npm run test`
   ```
   "scripts": {
     "test": "vitest"
@@ -319,22 +319,22 @@
 <details><summary><h3>Timers</h3></summary>
 
 - Timers let our code interact with time, allowing us to run functions either at regular intervals or after a certain amount of time has passed
-- There are two types of timers in JavaScript created by the ```setInterval()``` and ```setTimeout()``` methods
+- There are two types of timers in JavaScript created by the `setInterval()` and `setTimeout()` methods
 - Both types of timers take a callback function and a number in milliseconds as arguments 
 - setInterval() runs the function every time the specified amount of time passes while setTimeout() runs the function once when the time passes
-  - This timeout will log ```"Hello world!"``` once after 5 seconds
+  - This timeout will log `"Hello world!"` once after 5 seconds
     ```js
     setTimeout(() => {
       console.log("Hello world!");
     }, 5000);
     ```
-  - This timer will log ```"Hello world!"``` every 5 seconds
+  - This timer will log `"Hello world!"` every 5 seconds
     ```js
     setInterval(() => {
       console.log("Hello world!");
     }, 5000);
     ```
-- We can clear an interval with ```clearInterval()``` to stop it from running but first we need to create a reference to the interval by assigning it to a variable
+- We can clear an interval with `clearInterval()` to stop it from running but first we need to create a reference to the interval by assigning it to a variable
   ```js
   const myInterval = setInterval(() => {
     console.log("This is my interval. This message will repeat every second.");
@@ -371,7 +371,7 @@
       localStorage.setItem("colour", colour);
     });
     ```
-  - ```localStorage.getItem()``` will retrieve the value from local storage when given the key as an argument
+  - `localStorage.getItem()` will retrieve the value from local storage when given the key as an argument
     ```js
     const colour = localStorage.getItem("colour");
     
@@ -380,7 +380,7 @@
       input.value = colour;
     }
     ```
-- Local Storage can only accept strings, so if we want to store an object we will have to convert it to JSON using ```JSON.stringify()```
+- Local Storage can only accept strings, so if we want to store an object we will have to convert it to JSON using `JSON.stringify()`
   ```js
   const form = document.querySelector("form");
   
@@ -401,7 +401,7 @@
   
   form.addEventListener("submit", savePreferences);
   ```
-  - Likewise, we have to parse the JSON back into an object when we retrieve it which we do with ```JSON.parse()```
+  - Likewise, we have to parse the JSON back into an object when we retrieve it which we do with `JSON.parse()`
     ```js
     const preferences = JSON.parse(localStorage.getItem("preferences"));
     
@@ -415,7 +415,7 @@
   const favColour = localStorage.getItem("colour") || #0000FF; 
   ```
   - This works because the `||` operator will return the value on the left if it is truthy or the value on the right if the left value is falsy
-- We can remove an item from Local Storage using ```localStorage.removeItem()```
+- We can remove an item from Local Storage using `localStorage.removeItem()`
   ```js
   const clearButton = document.getElementById("clearButton");
   

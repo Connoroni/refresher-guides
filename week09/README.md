@@ -313,9 +313,24 @@
     export default async function UserPage() {
       const { id } = await params;
 
-      const 
+      const user = (await db.query(`SELECT * FROM users WHERE id = $1`, [id])).rows;
+
+      if (!user.length) {
+        notFound();
+      };
+
+      return (
+        {/* Your regularly scheduled page content here */}
+      )
     }
     ```
+      - The `notFound()` function sends users to the nearest `not-found` page that we've created
+- We also have error pages for any errors that aren't a `404` with an `error.js` or `global-error.js`
+  - We can have an `error.js` in our `app` directory or in any individual route
+
+    - Users will be shown the nearest `error.js` when they encounter an error
+  - `global-error.js` is the default used across the whole app, but only works in a production environment so we can't test it in localhost
+    - The file looks the same as any `error.js` just with a different file name
 </details>
 
 <details><summary><h3>Loading States and Suspense</h3></summary>
