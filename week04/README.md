@@ -14,6 +14,7 @@
 - We should now have a template Vite app with HTML, CSS, and JS files
 - We have a new command to replace clicking Go Live, `npm run dev` which runs our dev server on localhost:5173
   - While the dev server is running, we won't be able to send any commands to the terminal, so we should either kill the script with `CTRL+C` or create a new terminal to have two running at once
+  - We can view our scripts in `package.json` in the `"scripts"` object, and run them with `npm run <scriptName>`
 - The other important command is `npm run build` which builds our app to prepare it for deployment with a few steps
   - Minification - All our code is minified to condense it to use as few lines and characters as possible in order to improve load speed and performance
   - Bundling - All the project files are bundled together into jsut a few files which reduces the number of HTTP requests needed and improves performance
@@ -23,7 +24,7 @@
 
 <details><summary><h3>Building an API Server with Node and Express</h3></summary>
 
-- The client can only handle certain tasks, so at a certain point we'll have to create a server to handle tasks that involve manipulating data
+- The client can only handle certain tasks, so at a certain point we'll have to create a server to handle more complex tasks that involve manipulating data
   - That point is now!
 - Our server is divided into different routes that handle different tasks, and we create endpoints to access each route
 - The tasks our server will be handling will be HTTP requests such as GET and POST
@@ -34,6 +35,7 @@
   ```
 - There's some boilerplate that we'll always want at the top of our server
   ```js
+  // this isn't the full boilerplate, look at the 'Connecting a Database to Our Apps' section for that
   // import express and cors from our node_modules
   import express from "express";
   import cors from "cors";
@@ -41,11 +43,11 @@
   // instantiate our express app
   const app = express();
   
-  // tell express to expect information in the body of the request
+  // tell express to handle JSON data
   app.use(express.json());
   
   // tell express to use cors (Cross-Origin Resource Sharing) so our client can send data to the server
-  app.use(cors();
+  app.use(cors());
 
   // start our server
   app.listen(8080, function () {
@@ -141,7 +143,7 @@
 
 - To deploy the server to Render go to the 'Add new' dropdown and select 'Web Service'
   - Choose the GitHub repo containing both the client and server
-  - Set 'Root directory' to be server, as we only want to deploy the server code here
+  - Set 'Root directory' to be `server`, as we only want to deploy the server code here
   - Set 'Build command' to be `npm install` so all of our packages are installed
   - Set 'Start command' to be `node server.js` to run the server code just like we do locally
   - Add your environment variables at the bottom of the page
@@ -189,6 +191,8 @@
   
   nameForm.addEventListener("submit", submitHandler);
   ```
+  - The `headers` object is where we add additional information, so in this case we're telling the server that we're sending JSON
+  - The `body` contains the body of the data we're sending, so here we send the name value converted to JSON
 - Now in our server.js we can create a POST endpoint to handle the user-submitted data
   ```js
   app.post("/names", express.json(), (req, res) => {
@@ -247,7 +251,7 @@
     ```
     SELECT username, bio FROM users
     ```
-  - If we want to select only certain records we can add a ```WHERE``` condition
+  - If we want to select only certain records we can add a `WHERE` condition
     ```
     SELECT * FROM users WHERE id = '1'
     ```
@@ -269,6 +273,36 @@
     - Generate a new password by navigating to Database> Settings> Database password (or Project Settings> Database> Database password) and clicking 'Reset database password' then 'Generate a password'
       - Remember to click the green 'Reset password' button after generating and copying a new password, this is a very easy step to forget!
     - Store this in your .env file and you can access it with process.env like any other environment variable
+- With all this together, our complete boilerplate looks like this
+  ```js
+  // import the four packages we need
+  import express from "express";
+  import cors from "cors";
+  import dotenv from "dotenv";
+  import pg from "pg";
+  
+  // instantiate our express app
+  const app = express();
+  
+  // tell express to handle JSON data
+  app.use(express.json());
+  
+  // tell express to use cors (Cross-Origin Resource Sharing) so our client can send data to the server
+  app.use(cors());
+
+  // configure dotenv to load our environment variables into process.env
+  dotenv.config();
+
+  // create the db object
+  const db = new pg.Pool({
+    connectionString: process.env.DB_CONN,
+  });
+
+  // start our server
+  app.listen(8080, function () {
+    console.log("App is running on PORT 8080");
+  });
+  ```
 - Most of the time, the queries we want will come from user input or loading a page but we can create a `seed.js` file in the server to run queries through node.js
   - This is useful for being able to recreate tables from scratch if they get deleted or we need to recreate the database
   - In the seed file we can query the database with the `db.query` method where we can write queries just as we would in Supabase's SQL editor
@@ -282,6 +316,7 @@
     `);
     ```
   - Run the file with `node seed` and this table will be created in your database 
+  - Remember we need to create the db object in this file if we want to use it
 - We can use INSERT queries here but we often want the data inserted to vary, so we can use placeholders in the query with `$` followed by an array containing values to be substituted for the placeholder
   ```js
   db.query(
@@ -289,17 +324,17 @@
     ['hello there', 'general kenobi!']
   )
   ```
-  - This will insert the message name and content from the array into the workshop instead of '$1' and '$2'
+  - This will insert the message name and content from the array into the database instead of '$1' and '$2'
   - You may think we could do this with template literals but this would cause a problem
     ```js
     db.query(
       `INSERT INTO users (name) VALUES (${req.body.username})`
     )
     ```
-    - The above code would let malicous users enter values that would be interpretted as SQL queries e.g. entering a name of `Robert'); DROP TABLE users;--` would cause problems as a query could become
+    - The above code would let malicious users enter values that would be interpretted as SQL queries e.g. entering a name of `Robert'); DROP TABLE users;--` would cause problems as a query could become
       ```js
       db.query(
-      `INSERT INTO users (name) VALUES ('Robert'); DROP TABLE users;--)`
+        `INSERT INTO users (name) VALUES ('Robert'); DROP TABLE users;--)`
       )
       ```
       - This would insert the name 'Robert' but then end the query and begin a DROP TABLE query that would delete the users table, which would be anywhere from quite bad to completely catastrophic depending on the database
