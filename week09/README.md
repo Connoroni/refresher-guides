@@ -417,8 +417,8 @@
 - TypeScript is a superset of JavaScript that adds strict typing
   - This means that we give our variables a set data type so we can guarantee that the data they store is always that type
 - It might sound like a bad thing for now but this is so helpful for working in large projects or in teams where we haven't created each and every variable ourselves
-  - We *will* make mistakes when working like this, but TypeScript is there to give us a handy error when we do!
-- Many other languages have types built in and not having them is one of the reasons that some devs don't like JavaScript, but TypeScript adds these in to put us on a level with these other languages
+  - We *will* make mistakes when working with other people's code like this, but TypeScript is there to give us a handy error when we do!
+- Many other languages have types built in (and not having them is one of the reasons that some devs don't like JavaScript) but TypeScript adds these in to let us prove that JavaScript is a perfectly valid programming language
 - The first difference to JavaScript is that we need to use `.ts` files instead of `.js` (and `.tsx` instead of `.jsx`)
 - At it's simplest TypeScript looks like this:
   ```ts
@@ -513,5 +513,74 @@
 
 <details><summary><h3>TypeScript in React/Next</h3></summary>
 
-- 
+- Both React and Next.js let us choose between JavaScript and TypeScript in the setup process, so to set this up we just choose TypeScript
+- Everything will now be in `.tsx` files
+- React looks pretty similar to how it does normally, but Next.js will have some differences in the `layout.tsx` file as there are some functions and objects used that have custom types declared
+  - The `metadata` object has a type of `Metadata`, and the `children` prop in the `RootLayout` component has a type of `React.ReactNode`
+- Writing JSX alone doesn't require types but we do need them when we start using props
+  - Remember that `props` is an object so we use our object types
+    ```ts
+    {/* App.tsx */}
+    import Display from "./components/Display.jsx";
+    
+    export default function App() {
+      return (
+        <>
+          <h1>Look at this:</h1>
+          <Display word={"Hello"} />
+        </>
+      );
+    }
+    ```
+    ```ts
+    {/* /components/Display.jsx */}
+
+    export default function Display(props: {word: string}) {
+      return (
+        <p>{props.word}</p>
+      );
+    }
+    ```
+    - This is really helpful because we can look at a component and see what values it needs to take, which makes it much easier to read and use other people's components
+  - Just like other objects, we can create a type for the props instead of adding the type inline
+   ```ts
+   {/* /components/Display.jsx */}
+   type myPropType = {
+      word: string
+    }
+
+   export default function Display(props: myPropType) {
+     return (
+       <p>{props.word}</p>
+     );
+   }
+   ```
+  - We can still do our destructured props too
+   ```ts
+   {/* /components/Display.jsx */}
+   type myPropType = {
+      word: string
+    }
+
+   export default function Display({ word }: myPropType) {
+     return (
+       <p>{props.word}</p>
+     );
+   }
+   ```
+- Another time we need to use types in Next.js is for using async code where we use the `Promise` constructor
+  ```ts
+  {/* /posts/[id]/page.tsx */}
+
+  export default async function PostPage({ params }: {
+      params: Promise<{id: number}>
+    })
+    const { id }  = await params;
+
+    return(
+      <p>This post has an id of: {id}</p>
+    );
+  }
+  ```
+  - The same goes for the result of a database query which will also be a promise but will hold more properties (e.g. `Promise<{id: number, title: string, user_id: number, content: string}>`)
 </details>
