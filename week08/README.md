@@ -214,7 +214,7 @@
     );
   }
   ```
-  - A common setup in Next.js is a 'posts' page that fetches all posts, and a dynamic 'post' page that fetches a single post dependent on the params
+  - A common setup we'll see for the next couple of weeks is a 'posts' page that fetches all posts, and a dynamic 'post' page that fetches a single post dependent on the params
 - We can use query strings in Next though they are technically called `searchParams` here
   - This is handy for filtering or sorting data that we fetch
   ```js

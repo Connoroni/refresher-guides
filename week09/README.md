@@ -335,7 +335,43 @@
 
 <details><summary><h3>Loading States and Suspense</h3></summary>
 
-- 
+- Next gives us a few options to add loading states to our app for while we're waiting for components to load
+  - These can be helpful when querying the database and awaiting data, or when we have large images that take a long time to load
+- We can create a `loading.js` file in the same location as the relevant `page.js` and use it to set a component that appears while waiting for the finished page to be loaded
+  ```js
+  {/* loading.js */}
+
+  export default function Loading() {
+    return (
+      <div>
+        <p>Some content is loading...</p>
+      </div>
+    );
+  }
+  ```
+- We can also use the `<Suspense>` component and a `fallback` prop to appear in place of specific components that we're waiting for, instead of having to wait for the whole page to load
+  - That's the key difference between `loading.js` and `<Suspense>`: one of them appears instead of the whole page while the other appears in place of just the component(s) nested inside it
+  ```js
+  {/* /posts/[id]/page.js */}
+  import { db } from "@/utils/db.js";
+  import { Suspense } from "react";
+
+  export default async function PostsPage({ params }) {
+    const { id } = await params;
+
+    const post = (await db.query(`SELECT * FROM posts WHERE id = $1`, [id])).rows[0];
+
+    return(
+      <Suspense fallback={<p>Loading post...</p>}>
+       <div>
+         <h2>{post.title}</h1>
+         <p>{post.body}</p>
+       </div>
+      </Suspense>
+    );
+  }
+  ```
+    - Here we're using just a `p` tag but we can substitute this for a whole component instead
 </details>
 
 <details><summary><h3>Animations with Motion</h3></summary>
