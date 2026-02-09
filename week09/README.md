@@ -412,7 +412,106 @@
     - Some of the examples and tutorials are behind a paywall too which isn't great
 </details>
 
-<details><summary><h3>TypeScript</h3></summary>
+<details><summary><h3>TypeScript Introduction</h3></summary>
+
+- TypeScript is a superset of JavaScript that adds strict typing
+  - This means that we give our variables a set data type so we can guarantee that the data they store is always that type
+- It might sound like a bad thing for now but this is so helpful for working in large projects or in teams where we haven't created each and every variable ourselves
+  - We *will* make mistakes when working like this, but TypeScript is there to give us a handy error when we do!
+- Many other languages have types built in and not having them is one of the reasons that some devs don't like JavaScript, but TypeScript adds these in to put us on a level with these other languages
+- The first difference to JavaScript is that we need to use `.ts` files instead of `.js` (and `.tsx` instead of `.jsx`)
+- At it's simplest TypeScript looks like this:
+  ```ts
+  const myName: string = "Connor";
+  const myNumber: number = 5;
+  ```
+  - We're just adding a type to each of our variables to say that the value needs to be a string or number
+    ```ts
+    const myName: string = 800; // This would give an error because it's not a string
+    ```
+- In functions we can set the data types that the arguments need to be
+  ```ts
+  function sum(a: number, b: number) {
+    return a+b;
+  }
+  ```
+  - Now we don't need to read through the function to see what data type it looks like the arguments should take
+- If we declare a variable without a set type, it will have a type matching the initial value it was given
+  ```ts
+  const person = "Bob"; // This has a type of 'string'
+  let myVariable; // This has a type of 'any' not 'undefined'
+  ```
+- There are a few ways of handling complex data types (arrays and objects) in TypeScript
+- Arrays:
+  - We can tell an array to have only one type of data
+    ```ts
+    const numberArray: number[] = [1, 2, 3, 4, 5, 200];
+    ```
+  - We can give a data type to each item in the array but only if we know the length of the array (this makes it a tuple: an array with a fixed length)
+    ```ts
+    const mixedArray: [number, string, number] = [5, "hello", 25];
+    ```
+  - We can use a 'union type' to give us multiple options for types
+    ```ts
+    const whateverArray: (number|string)[] = [
+      "this",
+      "array",
+      "can",
+      "hold",
+      "strings",
+      "or",
+      "numbers",
+      7,
+      "in",
+      "any",
+      "order",
+      2579824
+    ];
+    ```
+      - This union type can be used in other variables too
+        ```ts
+        const myVariable: (string|number|boolean) = "I'm a string";
+        ```
+- Objects:
+  - For objects we can set the type of each property when we declare it
+    ```ts
+    const myObject: {
+      myName: string,
+      myCity: string,
+      isCool: boolean
+    } = {
+      myName: "Connor",
+      myCity: Hull,
+      isCool: true
+    }
+    ```
+  - The cleaner way to handle object types is to create our own reusable types using the `type` keyword and use that whenever we create an object with that type
+    ```ts
+    type person = {
+      myName: string,
+      myCity: string,
+      isCool: boolean
+    }
+
+    const connor: person = {
+      myName: "Connor",
+      myCity: "Hull",
+      isCool: true
+    }
+
+    const sam: person = {
+      myName: "Sam",
+      myCity: "Liverpool",
+      isCool: false
+    }
+    ```
+    - Now that this custom type exists we can use it wherever we would use a regular type, e.g.
+      ```ts
+      const staffArray: person[] = [connor, sam, manny, bertie];
+      ```
+</details>
+
+<details><summary><h3>TypeScript in React/Next</h3></summary>
 
 - 
 </details>
