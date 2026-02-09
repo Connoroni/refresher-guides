@@ -372,6 +372,7 @@
   }
   ```
     - Here we're using just a `p` tag but we can substitute this for a whole component instead
+- We don't have to make our own fancy loading components, we can use animated components from libraries like `react-spinners` in either `loading.js` or a Suspense fallback
 </details>
 
 <details><summary><h3>Animations with Motion</h3></summary>
