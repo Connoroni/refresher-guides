@@ -373,11 +373,43 @@
   ```
     - Here we're using just a `p` tag but we can substitute this for a whole component instead
 - We don't have to make our own fancy loading components, we can use animated components from libraries like `react-spinners` in either `loading.js` or a Suspense fallback
+  - Be aware that we have to create these animated components as client components
 </details>
 
 <details><summary><h3>Animations with Motion</h3></summary>
 
-- 
+- Motion (fka Framer Motion) is an animation library that allows us to add animations to React components
+- We install Motion with `npm install motion@12.0.0` (or `npm install motion` for the latest version)
+- Animated Motion components need to be client components as the animations are handled by the browser
+  - Even though the animated component itself is a client component we can still import it into server components and use it within those
+- The basic animated component is `<motion>` but we can use define HTML elements within that e.g. `<motion.div>` or `<motion.button>`
+  - We can give this component props to define how we want it to animate, with the most basic ones being `initial` (the initial styling) and `animate` (how we want the styling to change)
+    - These props can take any CSS value such as `opacity` or `background-color`
+  ```js
+  "use client";
+  import { motion } from "motion/react";
+
+  export default function AnimatedComponent() {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 100 }}
+      >
+        <p>I&apos;m in an animated div!</p>
+      </motion.div>
+    );
+  }
+  ```
+- There are a whole host of other props we can use too such as:
+  - `animate` - The target for when the component enters the DOM, other props give animation targets for other situations
+  - `exit` - Animation when the component leaves the DOM (needs to be wrapped with `<AnimatePresence>`)
+  - `whileInView` - Animation when the component enters the viewport
+  - `whileHover` - Animation when we hover over the component
+  - `whileTap` - Animation when we click or tap the component
+  - `transition` - Defining how the component transitions from the initial styling to the animation target
+- There are other components, hooks, props, and concepts we can read about them in the docs [here](https://motion.dev/docs/react-animation)
+  - The Motion docs are alright but it's not as easy to find what we're looking for as it is in the Next.js or React docs
+    - Some of the examples and tutorials are behind a paywall too which isn't great
 </details>
 
 <details><summary><h3>TypeScript</h3></summary>
