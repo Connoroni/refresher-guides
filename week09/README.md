@@ -509,6 +509,29 @@
       ```ts
       const staffArray: person[] = [connor, sam, manny, bertie];
       ```
+  - Another handy thing we can do with our custom object types is to make properties optional, meaning it will have a certain type if it exists but it's fine if it doesn't exist
+    ```ts
+    type person = {
+      myName: string,
+      myCity: string,
+      isCool: boolean,
+      hairColour?: string // We mark optional properties with a question mark before the colon
+    }
+
+    const connor: person = {
+      myName: "Connor",
+      myCity: "Hull",
+      isCool: true,
+      hairColour: "brown"
+    }
+    
+    const tim: person = {
+      myName: "Tim",
+      myCity: "Norwich",
+      isCool: true,
+    }
+    ```
+    - Both of these are valid objects with the type 'person' even though one of them is missing a property, because that property is option
 </details>
 
 <details><summary><h3>TypeScript in React/Next</h3></summary>
