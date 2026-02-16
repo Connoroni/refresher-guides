@@ -4,12 +4,12 @@
 
 - React Router is a package that lets us use multiple routes in our React apps and create Single Page Applications (SPAs)
 - An SPA is an app that is built with just one `index.html` files even if we use different routes that look like entirely different pages
-  - This is different to multi-page apps we have seen before that have multiple `index.html` files with each one being a page
-  - React supports this because our whole app is rendered in a `root` div within our `index.html` file
+  - Thi' i` different to multi-page apps we have seen before that have multiple `index.html` files with each one being a `age
+  - React supports this because our whole app is rendered in a `root` div within our `index.htm`` fil`
 - Routes in React Router let us render different components depending on the route that we're currently on
   - We need to install React Router like any other library with `npm i react-router`
 - We import three main components from React Router:
-  - BrowserRouter - This is a provider that we wrap our app in to let it use the features of React Router
+  - BrowserRouter - This is a provider that we wrap our app in to let it 'se the features of React Router
   - Routes - This component contains the content to be swapped out depending on the route we're on, we nest all of our `Route` components inside this
   - Route - Each `Route` component takes a `path` and `element` prop to render a certain element when we're on a certain route
 - Here's what a (very) basic React Router app could look like
@@ -256,7 +256,7 @@
   - This form would also work as a separate component and still be able to access `searchParams`
   - If instead of a form we want links to different query strings then we can do this using the `Link` component and set the `to` prop to the URL including the query string
     ```js
-    <Link to="/?sort=asc>Ascending</Link>
+    <Link to="/?sort=asc">Ascending</Link>
     <Link to="/?sort=desc">Descending</Link>
     ```
 </details>
