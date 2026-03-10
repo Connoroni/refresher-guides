@@ -439,10 +439,10 @@
 - If we declare a variable without a set type, it will have a type matching the initial value it was given
   ```ts
   const person = "Bob"; // This has a type of 'string'
-  let myVariable; // This has a type of 'any' not 'undefined'
+  let myVariable; // This has a type of 'any' even though it's 'undefined' but this isn't good TypeScript practice
   ```
 - There are a few ways of handling complex data types (arrays and objects) in TypeScript
-- Arrays:
+- **Arrays**:
   - We can tell an array to have only one type of data
     ```ts
     const numberArray: number[] = [1, 2, 3, 4, 5, 200];
@@ -472,7 +472,7 @@
         ```ts
         const myVariable: (string|number|boolean) = "I'm a string";
         ```
-- Objects:
+- **Objects**:
   - For objects we can set the type of each property when we declare it
     ```ts
     const myObject: {
@@ -564,33 +564,33 @@
       );
     }
     ```
-    - This is really helpful because we can look at a component and see what values it needs to take, which makes it much easier to read and use other people's components
-  - Just like other objects, we can create a type for the props instead of adding the type inline
-   ```ts
-   {/* /components/Display.jsx */}
-   type myPropType = {
-      word: string
-    }
-
-   export default function Display(props: myPropType) {
-     return (
-       <p>{props.word}</p>
-     );
-   }
-   ```
+    - This is really helpful when working collaboratively because we can look at a component we want to use and see what values it needs to take
+    - Just like other objects, we can create a type for the props instead of adding the type inline
+      ```ts
+      {/* /components/Display.jsx */}
+      type myPropType = {
+         word: string
+       }
+   
+      export default function Display(props: myPropType) {
+        return (
+          <p>{props.word}</p>
+        );
+      }
+      ```
   - We can still do our destructured props too
-   ```ts
-   {/* /components/Display.jsx */}
-   type myPropType = {
-      word: string
-    }
+    ```ts
+    {/* /components/Display.jsx */}
+    type myPropType = {
+       word: string
+     }
 
-   export default function Display({ word }: myPropType) {
-     return (
-       <p>{props.word}</p>
-     );
-   }
-   ```
+    export default function Display({ word }: myPropType) {
+      return (
+        <p>{props.word}</p>
+      );
+    }
+    ```
 - Another time we need to use types in Next.js is for using async code where we use the `Promise` constructor
   ```ts
   {/* /posts/[id]/page.tsx */}
