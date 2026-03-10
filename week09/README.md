@@ -543,7 +543,7 @@
 
 <details><summary><h3>TypeScript in React/Next</h3></summary>
 
-- Both React and Next.js let us choose between JavaScript and TypeScript in the setup process, so to set this up we just choose TypeScript
+- Both `create vite` and `create-next-app` let us choose between JavaScript and TypeScript in the setup process, so we can choose TypesScript here and it will be set up for us
 - Everything will now be in `.tsx` files
 - React looks pretty similar to how it does normally, but Next.js will have some differences in the `layout.tsx` file as there are some functions and objects used that have custom types declared
   - The `metadata` object has a type of `Metadata`, and the `children` prop in the `RootLayout` component has a type of `React.ReactNode`
