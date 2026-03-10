@@ -451,7 +451,7 @@
     ```ts
     const mixedArray: [number, string, number] = [5, "hello", 25];
     ```
-  - We can use a 'union type' to give us multiple options for types
+  - We can use a union type to give us multiple options for types
     ```ts
     const whateverArray: (number|string)[] = [
       "this",
@@ -532,6 +532,13 @@
     }
     ```
     - Both of these are valid objects with the type 'person' even though one of them is missing a property, because that property is option
+- We can make custom types that aren't objects too, and we can combine this with union types
+  ```ts
+  type language = "JavaScript" | "Python" | "PHP" | "C#"
+  const myLanguage: language = "JavaScript"
+  ```
+  - This means that any variable with the `language` type can only be one of these values
+    - We often see this inside object types so we can reuse the object but only give each property one of a limited number of options
 </details>
 
 <details><summary><h3>TypeScript in React/Next</h3></summary>
